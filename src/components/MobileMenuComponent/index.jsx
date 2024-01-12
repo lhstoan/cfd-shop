@@ -1,11 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useMainContext } from '../../context/MainContext'
 
+const MENUS = {
+	menu: "menu",
+	cate: "categories"
+}
 const MobileMenuComponent = () => {
+	const { handleCloseMenu } = useMainContext()
+	const [selectedTab, setSelectedTab] = useState(MENUS.menu);
+
+	const _onTabChange = (e, tab) => {
+		e?.preventDefault();
+		setSelectedTab(tab)
+	}
 	return (
 		<>
 			<div className="mobile-menu-container">
 				<div className="mobile-menu-wrapper">
-					<span className="mobile-menu-close"><i className="icon-close" /></span>
+					<span className="mobile-menu-close" onClick={handleCloseMenu}><i className="icon-close" /></span>
 					<form action="#" method="get" className="mobile-search">
 						<label htmlFor="mobile-search" className="sr-only">Search</label>
 						<input type="search" className="form-control" name="mobile-search" id="mobile-search" placeholder="Search in..." required />
@@ -13,10 +25,10 @@ const MobileMenuComponent = () => {
 					</form>
 					<ul className="nav nav-pills-mobile nav-border-anim" role="tablist">
 						<li className="nav-item">
-							<a className="nav-link active" id="mobile-menu-link" data-toggle="tab" href="#mobile-menu-tab" role="tab" aria-controls="mobile-menu-tab" aria-selected="true">Menu</a>
+							<a className="nav-link active" href="#mobile-menu-tab">Menu</a>
 						</li>
 						<li className="nav-item">
-							<a className="nav-link" id="mobile-cats-link" data-toggle="tab" href="#mobile-cats-tab" role="tab" aria-controls="mobile-cats-tab" aria-selected="false">Categories</a>
+							<a className="nav-link" href="#mobile-cats-tab" >Categories</a>
 						</li>
 					</ul>
 					<div className="tab-content">

@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import Input from '../InputComponent/Input'
-import { REGEXP, VALIDATE_MSG } from '../../constants/validate'
 import { MODAL_TYPES } from '../../constants/general'
-import { useAuthContext } from '../../context/AuthContext'
+import { REGEXP, VALIDATE_MSG } from '../../constants/validate'
+import useDebounce from '../../hooks/useDebounce'
+import { handleLogin } from '../../store/reducers/authReducer'
+import Input from '../InputComponent/Input'
 import LoadingPage from '../LoadingPage'
 const FormBtnStyle = styled.div`
 	display: flex;
@@ -14,8 +16,9 @@ const FormBtnStyle = styled.div`
 	}
 `
 const FormLogin = ({ show }) => {
-	const { handleLogin } = useAuthContext();
-	const [loading, setLoading] = useState(false);
+	const dispatch = useDispatch();
+	const { loading: { login: isLoading } } = useSelector(((state) => state.auth));
+
 	const {
 		register,
 		handleSubmit,
@@ -32,19 +35,19 @@ const FormLogin = ({ show }) => {
 		reset()
 	}, [show]);
 
-	const _onSubmitForm = (data) => {
-		if (data) {
-			setLoading(true);
-			handleLogin?.(data, () => {
-				setTimeout(() => {
-					setLoading(false);
-				}, 1000);
-			})
+	const _onSubmitForm = async (data) => {
+		if (data && !isLoading) {
+			try {
+				const result = await dispatch(handleLogin(data)).unwrap()
+			} catch (error) { () => { } }
 		}
 	}
+
+	const renderLoading = useDebounce(isLoading, 3000);
+
 	return (
-		<div>
-			{loading && <LoadingPage />}
+		<div style={{ position: "relative" }}>
+			{renderLoading && <LoadingPage />}
 			<Input
 				label={`${show === MODAL_TYPES.login ? "Username or email address" : "Your email address"}`}
 				isRequired

@@ -1,22 +1,11 @@
-import { applyMiddleware, combineReducers, compose, createStore } from "redux";
-import counterReducer from "./reducers/counterReducer";
-import featuredReducer from "./reducers/featuredReducer";
+import { configureStore } from "@reduxjs/toolkit";
+import authReducer from "./reducers/authReducer";
 
-const reducers = combineReducers({
-	counter: counterReducer,
-	featured: featuredReducer,
-});
-
-const thunkMiddleware = (store) => (next) => (action) => {
-	if (typeof action === "function") {
-		action(store.dispatch);
-		return;
-	}
-	next(action);
-}
-
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const store = createStore(reducers, undefined, composeEnhancers(applyMiddleware(thunkMiddleware)));
+const store = configureStore({
+    reducer: {
+        auth: authReducer
+    },
+    devTools: "development"
+})
 
 export default store;

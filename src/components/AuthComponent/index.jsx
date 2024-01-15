@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { MODAL_TYPES } from '../../constants/general';
-import { useAuthContext } from '../../context/AuthContext';
+import { handleCloseModal, handleShowModal } from '../../store/reducers/authReducer';
 import fnClass from './../../utils/fnClass';
 import FormLogin from './FormLogin';
 import FormRegister from './FormRegister';
@@ -10,14 +11,21 @@ const ModalContainer = styled.div`
 	display: ${(props) => (props['data-show'] ? "block" : "none")};
 `
 const AuthComponent = () => {
-	const { showModal, handleShowModal, handleCloseModal } = useAuthContext();
 	const [selectedTab, setSelectedTab] = useState(MODAL_TYPES.login);
+	const { showModal } = useSelector(((state) => state.auth))
+	const dispatch = useDispatch();
 
 	const _onTabChange = (e, tab) => {
 		e?.preventDefault();
 		setSelectedTab(tab)
-		handleShowModal?.(tab)
+		dispatch(handleShowModal(tab))
 	}
+	const _onCloseModal = (e) => {
+		e?.preventDefault();
+		setSelectedTab(MODAL_TYPES.login)
+		dispatch(handleCloseModal())
+	}
+
 	return ReactDOM.createPortal(
 		<>
 			{/* Sign in / Register Modal */}
@@ -27,7 +35,7 @@ const AuthComponent = () => {
 				<div className="modal-dialog modal-dialog-centered" >
 					<div className="modal-content">
 						<div className="modal-body">
-							<button type="button" className="close" onClick={handleCloseModal}>
+							<button type="button" className="close" onClick={_onCloseModal}>
 								<span aria-hidden="true"><i className="icon-close" /></span>
 							</button>
 							<div className="form-box">
@@ -44,7 +52,8 @@ const AuthComponent = () => {
 									</ul>
 									<div className="tab-content" id="tab-content-5">
 										<div className="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
-											<FormLogin show={selectedTab} />
+											{showModal === MODAL_TYPES.login && <FormLogin show={selectedTab} />}
+											{showModal === MODAL_TYPES.register && <FormRegister show={selectedTab} />}
 										</div>
 										{/* .End .tab-pane */}
 									</div>{/* End .tab-content */}

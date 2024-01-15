@@ -1,21 +1,29 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { MODAL_TYPES } from '../../constants/general';
-import { useAuthContext } from '../../context/AuthContext';
+import PATHS from '../../constants/paths';
+import { handleLogout, handleShowModal, updateProfile } from '../../store/reducers/authReducer';
 import tokenMethod from '../../utils/token';
 
 const HeaderTop = () => {
-	const { profile, handleShowModal, handleLogout } = useAuthContext();
-
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const { profile } = useSelector(((state) => state.auth));
 	const { lastName } = profile || {};
+
 	const _onOpenModal = (e) => {
 		e?.stopPropagation();
 		e?.preventDefault();
-		handleShowModal(MODAL_TYPES.login);
+		dispatch(handleShowModal(MODAL_TYPES.login))
 	}
 
 	const _onLogout = (e) => {
-		e.stopPropagation();
-		handleLogout?.();
+		e?.stopPropagation();
+		e?.preventDefault();
+		dispatch(handleLogout())
+		dispatch(updateProfile({}))
+		navigate(PATHS.HOME)
 	}
 	return (
 		<div className="header-top">
@@ -35,7 +43,7 @@ const HeaderTop = () => {
 					{!!tokenMethod.get() && (
 						<ul className="top-menu">
 							<li>
-								<a href="#" className="top-link-menu"><i className="icon-user" />{lastName} </a>
+								<a href="#" className="top-link-menu"><i className="icon-user" />{lastName || "Guest"} </a>
 								<ul>
 									<li>
 										<ul>

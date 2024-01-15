@@ -5,10 +5,10 @@ import AsideProductSection from './AsideProductSection'
 import NavigationSection from './NavigationSection'
 import ProductSection from './ProductSection'
 import ToolboxSection from './ToolboxSection'
-import useProdcutPage from './useProdcutPage'
+import useProductPage from './useProductPage'
 
 const ProductPage = () => {
-	const { asideProps } = useProdcutPage();
+	const { asideProps, asideRef } = useProductPage();
 
 	return (
 		<main className="main">
@@ -35,7 +35,7 @@ const ProductPage = () => {
 							<ProductSection />
 							<NavigationSection />
 						</div>
-						<AsideProductSection {...asideProps} />
+						<AsideProductSection {...asideProps} ref={asideRef} />
 					</div>
 				</div>
 			</div>

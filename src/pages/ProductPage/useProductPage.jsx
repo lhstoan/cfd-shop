@@ -1,34 +1,28 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import useQuery from "../../hooks/useQuery";
 import { productService } from "../../services/productService";
 
-const useProdcutPage = () => {
+const useProductPage = () => {
 	const { data: productsData } = useQuery(productService.getProducts)
 	const { data: categoriesData } = useQuery(productService.getCategories);
 
 	const products = productsData?.products || [];
 	const categories = categoriesData?.products || [];
 
-	const [selectedCateSlug, setSelectedCateSlug] = useState("all");
 
-	const featureProducts =
-		selectedCateSlug === "all"
-			? [...(products || [])]
-			: products?.filter(
-				(product) => product?.category?.slug === selectedCateSlug
-			);
-
+	const asideRef = useRef()
+	console.log("asideRef", asideRef);
 	//Toolbox Section
 	const asideProps = {
 		categories: [{ name: "All", slug: "all" }, ...categories],
-		featureProducts,
-		products
+		products,
+
 	};
 
 	return {
 		productsData,
-		asideProps
+		asideProps, asideRef
 	}
 }
 
-export default useProdcutPage
+export default useProductPage

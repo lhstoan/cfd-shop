@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import Input from '../InputComponent/Input'
+import { REGEXP, VALIDATE_MSG } from '../../constants/validate'
+import { MODAL_TYPES } from '../../constants/general'
+import { useAuthContext } from '../../context/AuthContext'
+import LoadingPage from '../LoadingPage'
 const FormBtnStyle = styled.div`
 	display: flex;
 	justify-content: center;
@@ -9,12 +13,14 @@ const FormBtnStyle = styled.div`
 		margin-right: 0 !important;
 	}
 `
-const FormLogin = () => {
-
+const FormLogin = ({ show }) => {
+	const { handleLogin } = useAuthContext();
+	const [loading, setLoading] = useState(false);
 	const {
 		register,
 		handleSubmit,
-		watch,
+		reset,
+		unregister,
 		formState: { errors },
 	} = useForm({
 		defaultValues: {
@@ -22,50 +28,52 @@ const FormLogin = () => {
 			password: ""
 		}
 	})
+	useEffect(() => {
+		reset()
+	}, [show]);
 
 	const _onSubmitForm = (data) => {
-		console.log(data);
+		if (data) {
+			setLoading(true);
+			handleLogin?.(data, () => {
+				setTimeout(() => {
+					setLoading(false);
+				}, 1000);
+			})
+		}
 	}
 	return (
 		<div>
+			{loading && <LoadingPage />}
 			<Input
-				label="Username or email address"
+				label={`${show === MODAL_TYPES.login ? "Username or email address" : "Your email address"}`}
 				isRequired
 				error={errors?.email?.message}
 				placeholder="cfd@gmail.com"
-				{...register("email", { required: "Nhapasjdsa'as" })}
+				{...register("email", {
+					required: VALIDATE_MSG.req,
+					pattern: { value: REGEXP.email, message: VALIDATE_MSG.pattern }
+				})}
 			/>
-
 			<Input
 				label="Password"
 				isRequired
 				error={errors?.password?.message}
 				placeholder="**********"
-				{...register("password", { required: "Nhapasjdsa'as" })}
+				type="password"
+				{...register("password", {
+					required: VALIDATE_MSG.req,
+					minLength: {
+						value: 6,
+						message: VALIDATE_MSG.min
+					}
+				})}
 			/>
-			{/* <div className="form-group">
-				<label htmlFor="singin-email">Username or email address *</label>
-				<input type="text" className="form-control input-error" id="singin-email" name="singin-email" />
-				<p className="form-error">Please fill in this field</p>
-			</div> */}
-			{/* End .form-group */}
-			{/* <div className="form-group">
-				<label htmlFor="singin-password">Password *</label>
-				<input type="password" className="form-control" id="singin-password" name="singin-password" />
-			</div> */}
-			{/* End .form-group */}
 			<FormBtnStyle className="form-footer">
 				<button type="submit" className="btn btn-outline-primary-2" onClick={handleSubmit(_onSubmitForm)}>
 					<span>LOG IN</span>
 					<i className="icon-long-arrow-right" />
 				</button>
-				{/* <div className="custom-control custom-checkbox">
-					<input type="checkbox" className="custom-control-input" id="signin-remember" />
-					<label className="custom-control-label" htmlFor="signin-remember">Remember
-						Me</label>
-				</div> */}
-				{/* End .custom-checkbox */}
-				{/* <a href="#" className="forgot-link">Forgot Your Password?</a> */}
 			</FormBtnStyle>
 			{/* End .form-footer */}
 		</div>

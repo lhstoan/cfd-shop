@@ -25,7 +25,7 @@ const CountDown = ({ targetTime }) => {
 		const intervalId = setInterval(() => {
 			const remaining = calculatorTime(targetTime);
 			setTime(remaining);
-		}, 1000);
+		}, 0);
 		return () => {
 			return () => clearInterval(intervalId);
 		};

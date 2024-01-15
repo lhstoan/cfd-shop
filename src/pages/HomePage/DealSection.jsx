@@ -43,7 +43,7 @@ const DealSection = (dealProps) => {
 								</Link>
 							</div>
 							<div className="deal-bottom">
-								<CountDown targetTime={targetTime} />
+								{/* <CountDown targetTime={targetTime} /> */}
 							</div>
 						</div>
 					</div>

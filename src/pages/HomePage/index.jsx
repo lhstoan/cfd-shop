@@ -10,7 +10,6 @@ import useHomePage from './useHomePage'
 
 const HomePage = () => {
 	const { introProps, hotProductProps, dealProps, brandProps, featuredProps } = useHomePage();
-	console.log("HomePage rebder");
 	return (
 		<main className="main">
 			<IntroSection {...introProps} />

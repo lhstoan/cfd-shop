@@ -324,59 +324,59 @@ $(document).ready(function() {
     }
 
     // Product Gallery - product-gallery.html 
-    if ($.fn.owlCarousel && $.fn.elevateZoom) {
-        var owlProductGallery = $('.product-gallery-carousel');
+    // if ($.fn.owlCarousel && $.fn.elevateZoom) {
+    //     var owlProductGallery = $('.product-gallery-carousel');
 
-        owlProductGallery.on('initialized.owl.carousel', function() {
-            owlProductGallery.find('.active img').elevateZoom({
-                zoomType: "inner",
-                cursor: "crosshair",
-                zoomWindowFadeIn: 400,
-                zoomWindowFadeOut: 400,
-                responsive: true
-            });
-        });
+    //     owlProductGallery.on('initialized.owl.carousel', function() {
+    //         owlProductGallery.find('.active img').elevateZoom({
+    //             zoomType: "inner",
+    //             cursor: "crosshair",
+    //             zoomWindowFadeIn: 400,
+    //             zoomWindowFadeOut: 400,
+    //             responsive: true
+    //         });
+    //     });
 
-        owlProductGallery.owlCarousel({
-            loop: false,
-            margin: 0,
-            responsiveClass: true,
-            nav: true,
-            navText: ['<i class="icon-angle-left">', '<i class="icon-angle-right">'],
-            dots: false,
-            smartSpeed: 400,
-            autoplay: false,
-            autoplayTimeout: 15000,
-            responsive: {
-                0: {
-                    items: 1
-                },
-                560: {
-                    items: 2
-                },
-                992: {
-                    items: 3
-                },
-                1200: {
-                    items: 3
-                }
-            }
-        });
+    //     owlProductGallery.owlCarousel({
+    //         loop: false,
+    //         margin: 0,
+    //         responsiveClass: true,
+    //         nav: true,
+    //         navText: ['<i class="icon-angle-left">', '<i class="icon-angle-right">'],
+    //         dots: false,
+    //         smartSpeed: 400,
+    //         autoplay: false,
+    //         autoplayTimeout: 15000,
+    //         responsive: {
+    //             0: {
+    //                 items: 1
+    //             },
+    //             560: {
+    //                 items: 2
+    //             },
+    //             992: {
+    //                 items: 3
+    //             },
+    //             1200: {
+    //                 items: 3
+    //             }
+    //         }
+    //     });
 
-        owlProductGallery.on('change.owl.carousel', function() {
-            $('.zoomContainer').remove();
-        });
+    //     owlProductGallery.on('change.owl.carousel', function() {
+    //         $('.zoomContainer').remove();
+    //     });
 
-        owlProductGallery.on('translated.owl.carousel', function() {
-            owlProductGallery.find('.active img').elevateZoom({
-                zoomType: "inner",
-                cursor: "crosshair",
-                zoomWindowFadeIn: 400,
-                zoomWindowFadeOut: 400,
-                responsive: true
-            });
-        });
-    }
+    //     owlProductGallery.on('translated.owl.carousel', function() {
+    //         owlProductGallery.find('.active img').elevateZoom({
+    //             zoomType: "inner",
+    //             cursor: "crosshair",
+    //             zoomWindowFadeIn: 400,
+    //             zoomWindowFadeOut: 400,
+    //             responsive: true
+    //         });
+    //     });
+    // }
 
     // Product Gallery Separeted- product-sticky.html 
     if ($.fn.elevateZoom) {

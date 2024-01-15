@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { MODAL_TYPES } from './../constants/general';
 import { authService } from './../services/authService';
 import tokenMethod from './../utils/token';
+import PATHS from "../constants/paths";
 
 const AuthContext = createContext();
 
@@ -37,9 +38,33 @@ const AuthContextProvider = ({ children }) => {
 
 	const handleLogout = () => {
 		tokenMethod.remove();
-		message.success("Tài khoản đã đăng xuất!")
+		message.success("Account logged out!")
 		navigate(PATHS.HOME)
 		setProfile({});
+	}
+
+	const handleLogin = async (loginData, callback) => {
+		const payload = { ...loginData };
+
+		try {
+			const res = await authService.login(payload);
+			if (res?.data?.data) {
+				const { token: accessToken, refreshToken } = res?.data?.data || "";
+				// set token from api login
+				tokenMethod.set({ accessToken, refreshToken })
+
+				message.success("Logged in successfully!")
+				handleGetProfile();
+				handleCloseModal();
+			} else {
+				message.error("Login unsuccessful !")
+			}
+		} catch (error) {
+			console.log('error', error)
+		}
+		finally {
+			callback?.();
+		}
 	}
 
 	const handleGetProfile = async (callback) => {
@@ -58,7 +83,7 @@ const AuthContextProvider = ({ children }) => {
 	}
 
 	return (
-		<AuthContext.Provider value={{ showModal, handleShowModal, handleCloseModal, handleLogout }}>
+		<AuthContext.Provider value={{ showModal, profile, handleShowModal, handleCloseModal, handleLogin, handleLogout }}>
 			{children}
 		</AuthContext.Provider>
 	)

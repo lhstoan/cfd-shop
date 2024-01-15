@@ -44,8 +44,7 @@ const AuthComponent = () => {
 									</ul>
 									<div className="tab-content" id="tab-content-5">
 										<div className="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
-											{showModal === MODAL_TYPES.login && <FormLogin />}
-											{showModal === MODAL_TYPES.register && <FormRegister />}
+											<FormLogin show={selectedTab} />
 										</div>
 										{/* .End .tab-pane */}
 									</div>{/* End .tab-content */}

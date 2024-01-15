@@ -30,7 +30,7 @@ const useHomePage = () => {
 	// Hot Product Section
 	const hotProductProps = {
 		featuredProducts,
-		onSaleProducts,
+		onSaleProducts: dealProducts,
 		topRatedProducts,
 	};
 	// Deal Section
@@ -48,7 +48,7 @@ const useHomePage = () => {
 
 	// const [selectedCateSlug, setSelectedCateSlug] = useState("all");
 	const cateSlug = useSelector(((state) => state.featured));
-	console.log(cateSlug);
+
 	const featuredProps = {
 		categories: [{ name: "All", slug: "all" }, ...categories],
 	}

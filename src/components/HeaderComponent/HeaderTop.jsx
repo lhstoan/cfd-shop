@@ -4,8 +4,9 @@ import { useAuthContext } from '../../context/AuthContext';
 import tokenMethod from '../../utils/token';
 
 const HeaderTop = () => {
-	const { handleShowModal, handleLogout } = useAuthContext();
+	const { profile, handleShowModal, handleLogout } = useAuthContext();
 
+	const { lastName } = profile || {};
 	const _onOpenModal = (e) => {
 		e?.stopPropagation();
 		e?.preventDefault();
@@ -34,7 +35,7 @@ const HeaderTop = () => {
 					{!!tokenMethod.get() && (
 						<ul className="top-menu">
 							<li>
-								<a href="#" className="top-link-menu"><i className="icon-user" />Tran Nghia </a>
+								<a href="#" className="top-link-menu"><i className="icon-user" />{lastName} </a>
 								<ul>
 									<li>
 										<ul>

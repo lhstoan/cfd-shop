@@ -37,11 +37,9 @@ const ProductCard = ({ product, ...restProps }) => {
 				{/* Handling when there is a discount product  */}
 				{discount > 0 && (<span className="product-label label-circle label-sale">Sale</span>)}
 
-				<Link to={productPath} style={{ height: 275 }}>
+				<Link to={productPath} style={{ height: 275, display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "#fff" }}>
 					{imgSrc !== "" ? <img src={imgSrc} alt="Product image" className="product-image" style={{
-						width: "100%",
-						height: "100%",
-						objectFit: "cover",
+						maxHeight: "100%",
 					}} /> : (
 						<ImageWrapper>
 							<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Product Image" />

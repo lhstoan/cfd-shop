@@ -2,7 +2,9 @@ import { message } from "antd";
 import { Suspense, lazy, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import LoadingPage from "./components/LoadingPage";
 import PATHS from "./constants/paths";
+import ProductPage from "./pages/ProductPage";
 import { handleGetProfile } from "./store/reducers/authReducer";
 import tokenMethod from "./utils/token";
 // import component page
@@ -29,11 +31,12 @@ function App() {
 
 	return (
 		<>
-			<Suspense fallback={<div>Loading...</div>}>
+			<Suspense fallback={<LoadingPage />}>
 				<BrowserRouter>
 					<Routes>
 						<Route path={PATHS.HOME} element={<MainLayout />}>
 							<Route index element={<HomePage />} />
+							<Route path={PATHS.PRODUCTS.INDEX} element={<ProductPage />} />
 
 							{/* link to error page  */}
 							<Route path="*" element={<Page404 />} />

@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CFD Shop - ReactJs Master Courses</title>
+    <meta name="keywords" content="CFD Circle">
+    <meta name="description" content="ReactJs Master Courses by CFD Circle">
+    <meta name="author" content="CFD Circle">
+
+    <link rel="canonical" href="https://cfdcircle.vn" />
+    <!-- Favicon -->
+    <link rel="icon" href="assets/images/icons/favicon.ico">
+
+    <!-- Meta Tag Facebook -->
+    <meta property="og:locale" content="en" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="CFD Circle" />
+    <meta property="og:description" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:site_name" content="CFD Circle" />
+    <meta property="og:image" content="" />
+
+    <!-- Meta Tag Twitter -->
+    <meta name="twitter:card" content="" />
+    <meta name="twitter:site" content="" />
+    <meta name="twitter:title" content="" />
+    <meta name="twitter:description" content="" />
+    <meta name="twitter:image" content="" />
+
+    <!-- Plugins CSS File -->
+    <link rel="stylesheet" href="assets/css/libs.min.css">
+    <!-- Main CSS File -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+
+<body>
+    <div class="page-wrapper">
+        <header class="header">
+            <div class="header-top">
+                <div class="container">
+                    <div class="header-left">
+                        <a href="tel:0989596912">
+                            <i class="icon-phone"></i> Hotline: 098 9596 912 </a>
+                    </div>
+                    <div class="header-right">
+                        <!-- Not LogIn -->
+                        <ul class="top-menu top-link-menu">
+                            <li><a href="#signin-modal" data-toggle="modal" class="top-menu-login"><i class="icon-user"></i>Login | Resgister </a></li>
+                        </ul>
+
+                        <!-- Logged In -->
+                        <!-- <ul class="top-menu">
+                            <li>
+                                <a href="#" class="top-link-menu"><i class="icon-user"></i>Tran Nghia </a>
+                                <ul>
+                                    <li>
+                                        <ul>
+                                            <li><a href="dashboard.html">Account Details</a></li>
+                                            <li><a href="dashboard.html">Your Orders</a></li>
+                                            <li><a href="dashboard.html">Wishlist <span>(3)</span></a></li>
+                                            <li><a href="#">Sign Out</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul> -->
+                    </div>
+                </div>
+            </div>
+            <div class="header-middle sticky-header">
+                <div class="container">
+                    <div class="header-left">
+                        <button class="mobile-menu-toggler">
+                            <span class="sr-only">Toggle mobile menu</span>
+                            <i class="icon-bars"></i>
+                        </button>
+                        <a href="index.html" class="logo">
+                            <img src="assets/images/logo.svg" alt="Molla Logo" width="160">
+                        </a>
+                    </div>
+                    <nav class="main-nav">
+                        <ul class="menu">
+                            <li>
+                                <a href="index.html">Home</a>
+                            </li>
+                            <li>
+                                <a href="about.html">About Us</a>
+                            </li>
+                            <li class="active">
+                                <a href="product.html">Product</a>
+                            </li>
+                            <li>
+                                <a href="blog.html">Blog</a>
+                            </li>
+                            <li>
+                                <a href="contact.html">Contact Us</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="header-right">
+                        <div class="header-search">
+                            <a href="#" class="search-toggle" role="button" title="Search">
+                                <i class="icon-search"></i>
+                            </a>
+                            <form action="#" method="get">
+                                <div class="header-search-wrapper">
+                                    <label for="q" class="sr-only">Search</label>
+                                    <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="dropdown cart-dropdown">
+                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                                <i class="icon-shopping-cart"></i>
+                                <span class="cart-count">2</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <div class="dropdown-cart-products">
+                                    <div class="product">
+                                        <div class="product-cart-details">
+                                            <h4 class="product-title">
+                                                <a href="product-detail.html">Beige knitted elastic runner shoes</a>
+                                            </h4>
+                                            <span class="cart-product-info">
+                                                <span class="cart-product-qty">1</span> x $84.00 </span>
+                                        </div>
+                                        <figure class="product-image-container">
+                                            <a href="product-detail.html" class="product-image">
+                                                <img src="assets/images/products/cart/product-1.jpg" alt="product">
+                                            </a>
+                                        </figure>
+                                        <a href="#" class="btn-remove" title="Remove Product">
+                                            <i class="icon-close"></i>
+                                        </a>
+                                    </div>
+                                    <div class="product">
+                                        <div class="product-cart-details">
+                                            <h4 class="product-title">
+                                                <a href="product-detail.html">Blue utility pinafore denim dress</a>
+                                            </h4>
+                                            <span class="cart-product-info">
+                                                <span class="cart-product-qty">1</span> x $76.00 </span>
+                                        </div>
+                                        <figure class="product-image-container">
+                                            <a href="product-detail.html" class="product-image">
+                                                <img src="assets/images/products/cart/product-2.jpg" alt="product">
+                                            </a>
+                                        </figure>
+                                        <a href="#" class="btn-remove" title="Remove Product">
+                                            <i class="icon-close"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="dropdown-cart-total">
+                                    <span>Total</span>
+                                    <span class="cart-total-price">$160.00</span>
+                                </div>
+                                <div class="dropdown-cart-action">
+                                    <a href="cart.html" class="btn btn-primary">View Cart</a>
+                                    <a href="checkout.html" class="btn btn-outline-primary-2">
+                                        <span>Checkout</span>
+                                        <i class="icon-long-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="main">
+            <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+                <div class="container">
+                    <h1 class="page-title">Product</h1>
+                </div>
+            </div>
+            <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Product</li>
+                    </ol>
+                </div>
+            </nav>
+            <div class="page-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <div class="toolbox">
+                                <div class="toolbox-left">
+                                    <div class="toolbox-info"> Showing <span>9 of 56</span> Products </div>
+                                </div>
+                                <div class="toolbox-right">
+                                    <div class="toolbox-sort">
+                                        <label for="sortby">Sort by:</label>
+                                        <div class="select-custom">
+                                            <select name="sortby" id="sortby" class="form-control">
+                                                <option value="popularity" selected>Most Popular</option>
+                                                <option value="pricelow">Price Low to High</option>
+                                                <option value="pricehight">Price Hight to Low </option>
+                                                <option value="newest">Newest</option>
+                                                <option value="rating">Most Rated</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="products mb-3">
+                                <div class="row justify-content-center">
+                                    <div class="col-6 col-md-4 col-lg-4">
+                                        <div class="product product-2">
+                                            <figure class="product-media">
+                                                <a href="product-detail.html">
+                                                    <img src="assets/images/demos/demo-3/products/product-11.jpg" alt="Product image" class="product-image">
+                                                </a>
+                                                <div class="product-action-vertical">
+                                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable">
+                                                        <span>add to wishlist</span>
+                                                    </a>
+                                                </div>
+                                                <div class="product-action product-action-dark">
+                                                    <a href="#" class="btn-product btn-cart" title="Add to cart">
+                                                        <span>add to cart</span>
+                                                    </a>
+                                                </div>
+                                            </figure>
+                                            <div class="product-body">
+                                                <h3 class="product-title">
+                                                    <a href="product-detail.html">MacBook Pro 13" Display, i5</a>
+                                                </h3>
+                                                <div class="product-price"> $1,199.99 </div>
+                                                <div class="ratings-container">
+                                                    <div class="ratings">
+                                                        <div class="ratings-val" style="width: 100%;"></div>
+                                                    </div>
+                                                    <span class="ratings-text">( 4 Reviews )</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-4">
+                                        <div class="product product-2">
+                                            <figure class="product-media">
+                                                <a href="product-detail.html">
+                                                    <img src="assets/images/demos/demo-3/products/product-12.jpg" alt="Product image" class="product-image">
+                                                </a>
+                                                <div class="product-action-vertical">
+                                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable">
+                                                        <span>add to wishlist</span>
+                                                    </a>
+                                                </div>
+                                                <div class="product-action product-action-dark">
+                                                    <a href="#" class="btn-product btn-cart" title="Add to cart">
+                                                        <span>add to cart</span>
+                                                    </a>
+                                                </div>
+                                            </figure>
+                                            <div class="product-body">
+                                                <h3 class="product-title">
+                                                    <a href="product-detail.html">Bose - SoundLink Bluetooth Speaker</a>
+                                                </h3>
+                                                <div class="product-price"> $79.99 </div>
+                                                <div class="ratings-container">
+                                                    <div class="ratings">
+                                                        <div class="ratings-val" style="width: 60%;"></div>
+                                                    </div>
+                                                    <span class="ratings-text">( 6 Reviews )</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-4">
+                                        <div class="product product-2">
+                                            <figure class="product-media">
+                                                <span class="product-label label-circle label-new">New</span>
+                                                <a href="product-detail.html">
+                                                    <img src="assets/images/demos/demo-3/products/product-13.jpg" alt="Product image" class="product-image">
+                                                </a>
+                                                <div class="product-action-vertical">
+                                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable">
+                                                        <span>add to wishlist</span>
+                                                    </a>
+                                                </div>
+                                                <div class="product-action product-action-dark">
+                                                    <a href="#" class="btn-product btn-cart" title="Add to cart">
+                                                        <span>add to cart</span>
+                                                    </a>
+                                                </div>
+                                            </figure>
+                                            <div class="product-body">
+                                                <h3 class="product-title">
+                                                    <a href="product-detail.html">Apple - 11 Inch iPad Pro with Wi-Fi
+                                                        256GB </a>
+                                                </h3>
+                                                <div class="product-price"> $899.99 </div>
+                                                <div class="ratings-container">
+                                                    <div class="ratings">
+                                                        <div class="ratings-val" style="width: 80%;"></div>
+                                                    </div>
+                                                    <span class="ratings-text">( 4 Reviews )</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-4">
+                                        <div class="product product-2">
+                                            <figure class="product-media">
+                                                <span class="product-label label-circle label-sale">Sale</span>
+                                                <a href="product-detail.html">
+                                                    <img src="assets/images/demos/demo-3/products/product-14.jpg" alt="Product image" class="product-image">
+                                                </a>
+                                                <div class="product-action-vertical">
+                                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable">
+                                                        <span>add to wishlist</span>
+                                                    </a>
+                                                </div>
+                                                <div class="product-action product-action-dark">
+                                                    <a href="#" class="btn-product btn-cart" title="Add to cart">
+                                                        <span>add to cart</span>
+                                                    </a>
+                                                </div>
+                                            </figure>
+                                            <div class="product-body">
+                                                <h3 class="product-title">
+                                                    <a href="product-detail.html">Google - Pixel 3 XL 128GB</a>
+                                                </h3>
+                                                <div class="product-price">
+                                                    <span class="new-price">$35.41</span>
+                                                    <span class="old-price">Was $41.67</span>
+                                                </div>
+                                                <div class="ratings-container">
+                                                    <div class="ratings">
+                                                        <div class="ratings-val" style="width: 100%;"></div>
+                                                    </div>
+                                                    <span class="ratings-text">( 10 Reviews )</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-4">
+                                        <div class="product product-2">
+                                            <figure class="product-media">
+                                                <a href="product-detail.html">
+                                                    <img src="assets/images/demos/demo-3/products/product-15.jpg" alt="Product image" class="product-image">
+                                                </a>
+                                                <div class="product-action-vertical">
+                                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable">
+                                                        <span>add to wishlist</span>
+                                                    </a>
+                                                </div>
+                                                <div class="product-action product-action-dark">
+                                                    <a href="#" class="btn-product btn-cart" title="Add to cart">
+                                                        <span>add to cart</span>
+                                                    </a>
+                                                </div>
+                                            </figure>
+                                            <div class="product-body">
+                                                <h3 class="product-title">
+                                                    <a href="product-detail.html">Samsung - 55" Class LED 2160p
+                                                        Smart</a>
+                                                </h3>
+                                                <div class="product-price"> $899.99 </div>
+                                                <div class="ratings-container">
+                                                    <div class="ratings">
+                                                        <div class="ratings-val" style="width: 60%;"></div>
+                                                    </div>
+                                                    <span class="ratings-text">( 5 Reviews )</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-4">
+                                        <div class="product product-2">
+                                            <figure class="product-media">
+                                                <a href="product-detail.html">
+                                                    <img src="assets/images/demos/demo-3/products/product-11.jpg" alt="Product image" class="product-image">
+                                                </a>
+                                                <div class="product-action-vertical">
+                                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable">
+                                                        <span>add to wishlist</span>
+                                                    </a>
+                                                </div>
+                                                <div class="product-action product-action-dark">
+                                                    <a href="#" class="btn-product btn-cart" title="Add to cart">
+                                                        <span>add to cart</span>
+                                                    </a>
+                                                </div>
+                                            </figure>
+                                            <div class="product-body">
+                                                <h3 class="product-title">
+                                                    <a href="product-detail.html">MacBook Pro 13" Display, i5</a>
+                                                </h3>
+                                                <div class="product-price"> $1,199.99 </div>
+                                                <div class="ratings-container">
+                                                    <div class="ratings">
+                                                        <div class="ratings-val" style="width: 100%;"></div>
+                                                    </div>
+                                                    <span class="ratings-text">( 4 Reviews )</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item disabled">
+                                        <a class="page-link page-link-prev" href="#" aria-label="Previous" tabindex="-1" aria-disabled="true">
+                                            <span aria-hidden="true">
+                                                <i class="icon-long-arrow-left"></i>
+                                            </span>Prev </a>
+                                    </li>
+                                    <li class="page-item active" aria-current="page">
+                                        <a class="page-link" href="#">1</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">2</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">3</a>
+                                    </li>
+                                    <li class="page-item-total">of 6</li>
+                                    <li class="page-item">
+                                        <a class="page-link page-link-next" href="#" aria-label="Next"> Next <span
+                                                aria-hidden="true">
+                                                <i class="icon-long-arrow-right"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <aside class="col-lg-3 order-lg-first">
+                            <div class="sidebar sidebar-shop">
+                                <div class="widget widget-clean">
+                                    <label>Filters:</label>
+                                    <a href="#" class="sidebar-filter-clear">Clean All</a>
+                                </div>
+                                <div class="widget widget-collapsible">
+                                    <h3 class="widget-title">
+                                        <a data-toggle="collapse" href="#widget-1" role="button" aria-expanded="true" aria-controls="widget-1"> Category </a>
+                                    </h3>
+                                    <div class="collapse show" id="widget-1">
+                                        <div class="widget-body">
+                                            <div class="filter-items filter-items-count">
+                                                <div class="filter-item">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="cat-1">
+                                                        <label class="custom-control-label" for="cat-1">TV</label>
+                                                    </div>
+                                                    <span class="item-count">3</span>
+                                                </div>
+                                                <div class="filter-item">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="cat-2">
+                                                        <label class="custom-control-label" for="cat-2">Computers</label>
+                                                    </div>
+                                                    <span class="item-count">0</span>
+                                                </div>
+                                                <div class="filter-item">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="cat-3">
+                                                        <label class="custom-control-label" for="cat-3">Tablets & Cell
+                                                            Phones</label>
+                                                    </div>
+                                                    <span class="item-count">4</span>
+                                                </div>
+                                                <div class="filter-item">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="cat-4">
+                                                        <label class="custom-control-label" for="cat-4">Smartwatches</label>
+                                                    </div>
+                                                    <span class="item-count">2</span>
+                                                </div>
+                                                <div class="filter-item">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="cat-5">
+                                                        <label class="custom-control-label" for="cat-5">Accessories</label>
+                                                    </div>
+                                                    <span class="item-count">2</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget widget-collapsible">
+                                    <h3 class="widget-title">
+                                        <a data-toggle="collapse" href="#widget-2" role="button" aria-expanded="true" aria-controls="widget-5"> Price </a>
+                                    </h3>
+                                    <div class="collapse show" id="widget-2">
+                                        <div class="widget-body">
+                                            <div class="filter-price">
+                                                <div class="filter-price-text"> Price Range: <span id="filter-price-range"></span>
+                                                </div>
+                                                <div id="price-slider"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="footer">
+            <div class="footer-middle">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-5">
+                            <div class="widget widget-about">
+                                <img src="assets/images/logo.svg" class="footer-logo" alt="Footer Logo" width="120">
+                                <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
+                                <div class="widget-call">
+                                    <i class="icon-phone"></i> Got Question? Call us 24/7 <a href="tel:#">098 9596
+                                        912</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-2 offset-lg-1">
+                            <div class="widget">
+                                <h4 class="widget-title">Useful Links</h4>
+                                <ul class="widget-list">
+                                    <li>
+                                        <a href="about.html">About Us</a>
+                                    </li>
+                                    <li>
+                                        <a href="product.html">Product</a>
+                                    </li>
+                                    <li>
+                                        <a href="faq.html">FAQs</a>
+                                    </li>
+                                    <li>
+                                        <a href="contact.html">Contact us</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-2">
+                            <div class="widget">
+                                <h4 class="widget-title">Customer Service</h4>
+                                <ul class="widget-list">
+                                    <li>
+                                        <a href="payment-methods.html">Payment Methods</a>
+                                    </li>
+                                    <li>
+                                        <a href="returns.html">Returns</a>
+                                    </li>
+                                    <li>
+                                        <a href="shipping.html">Shipping</a>
+                                    </li>
+                                    <li>
+                                        <a href="privacy-policy.html">Privacy Policy</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-2">
+                            <div class="widget">
+                                <h4 class="widget-title">My Account</h4>
+                                <ul class="widget-list">
+                                    <li>
+                                        <a href="dashboard.html">Account Details</a>
+                                    </li>
+                                    <li>
+                                        <a href="cart.html">View Cart</a>
+                                    </li>
+                                    <li>
+                                        <a href="dashboard.html">My Wishlist</a>
+                                    </li>
+                                    <li>
+                                        <a href="dashboard.html">Track My Order</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="container">
+                    <p class="footer-copyright">Copyright © 2023 <a href="https://cfdcircle.vn/" target="_blank"><strong>CFD Circle</strong></a>. All Rights Reserved.</p>
+                    <figure class="footer-payments">
+                        <img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">
+                    </figure>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <button id="scroll-top" title="Back to Top">
+        <i class="icon-arrow-up"></i>
+    </button>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay"></div>
+    <div class="mobile-menu-container">
+        <div class="mobile-menu-wrapper">
+            <span class="mobile-menu-close">
+                <i class="icon-close"></i>
+            </span>
+            <form action="#" method="get" class="mobile-search">
+                <label for="mobile-search" class="sr-only">Search</label>
+                <input type="search" class="form-control" name="mobile-search" id="mobile-search" placeholder="Search in..." required>
+                <button class="btn btn-primary" type="submit">
+                    <i class="icon-search"></i>
+                </button>
+            </form>
+            <ul class="nav nav-pills-mobile nav-border-anim" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="mobile-menu-link" data-toggle="tab" href="#mobile-menu-tab" role="tab" aria-controls="mobile-menu-tab" aria-selected="true">Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="mobile-cats-link" data-toggle="tab" href="#mobile-cats-tab" role="tab" aria-controls="mobile-cats-tab" aria-selected="false">Categories</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="mobile-menu-tab" role="tabpanel" aria-labelledby="mobile-menu-link">
+                    <nav class="mobile-nav">
+                        <ul class="mobile-menu">
+                            <li>
+                                <a href="index.html">Home</a>
+                            </li>
+                            <li>
+                                <a href="about.html">About Us</a>
+                            </li>
+                            <li class="active">
+                                <a href="product.html">Product</a>
+                            </li>
+                            <li>
+                                <a href="blog.html">Blog</a>
+                            </li>
+                            <li>
+                                <a href="contact.html">Contact Us</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="tab-pane fade" id="mobile-cats-tab" role="tabpanel" aria-labelledby="mobile-cats-link">
+                    <nav class="mobile-cats-nav">
+                        <ul class="mobile-cats-menu">
+                            <li>
+                                <a class="mobile-cats-lead" href="#">TV</a>
+                            </li>
+                            <li>
+                                <a href="#">Computers</a>
+                            </li>
+                            <li>
+                                <a href="#">Tablets & Cell Phones</a>
+                            </li>
+                            <li>
+                                <a href="#">Smartwatches</a>
+                            </li>
+                            <li>
+                                <a href="#">Accessories</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="social-icons">
+                <a href="#" class="social-icon" target="_blank" title="Facebook">
+                    <i class="icon-facebook-f"></i>
+                </a>
+                <a href="#" class="social-icon" target="_blank" title="Twitter">
+                    <i class="icon-twitter"></i>
+                </a>
+                <a href="#" class="social-icon" target="_blank" title="Instagram">
+                    <i class="icon-instagram"></i>
+                </a>
+                <a href="#" class="social-icon" target="_blank" title="Youtube">
+                    <i class="icon-youtube"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Sign in / Register Modal -->
+    <div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <i class="icon-close"></i>
+                        </span>
+                    </button>
+                    <div class="form-box">
+                        <div class="form-tab">
+                            <ul class="nav nav-pills nav-fill nav-border-anim" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="signin-tab" data-toggle="tab" href="#signin" role="tab" aria-controls="signin" aria-selected="true">Sign In</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="tab-content-5">
+                                <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
+                                    <form action="#">
+                                        <div class="form-group">
+                                            <label for="singin-email">Username or email address *</label>
+                                            <input type="text" class="form-control input-error" id="singin-email" name="singin-email" required>
+                                            <p class="form-error">Please fill in this field</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="singin-password">Password *</label>
+                                            <input type="password" class="form-control" id="singin-password" name="singin-password" required>
+                                        </div>
+                                        <div class="form-footer">
+                                            <button type="submit" class="btn btn-outline-primary-2">
+                                                <span>LOG IN</span>
+                                                <i class="icon-long-arrow-right"></i>
+                                            </button>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="signin-remember">
+                                                <label class="custom-control-label" for="signin-remember">Remember
+                                                    Me</label>
+                                            </div>
+                                            <a href="#" class="forgot-link">Forgot Your Password?</a>
+                                        </div>
+                                    </form>
+                                    <div class="form-choice">
+                                        <p class="text-center">or sign in with</p>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <a href="#" class="btn btn-login btn-g">
+                                                    <i class="icon-google"></i> Login With Google </a>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <a href="#" class="btn btn-login btn-f">
+                                                    <i class="icon-facebook-f"></i> Login With Facebook </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                                    <form action="#">
+                                        <div class="form-group">
+                                            <label for="register-email">Your email address *</label>
+                                            <input type="email" class="form-control input-error" id="register-email" name="register-email" required>
+                                            <p class="form-error">Please fill in this field</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="register-password">Password *</label>
+                                            <input type="password" class="form-control" id="register-password" name="register-password" required>
+                                        </div>
+                                        <div class="form-footer">
+                                            <button type="submit" class="btn btn-outline-primary-2">
+                                                <span>SIGN UP</span>
+                                                <i class="icon-long-arrow-right"></i>
+                                            </button>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="register-policy" required>
+                                                <label class="custom-control-label" for="register-policy">I agree to the
+                                                    <a href="privacy-policy.html">privacy policy</a> * </label>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="form-choice">
+                                        <p class="text-center">or sign in with</p>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <a href="#" class="btn btn-login btn-g">
+                                                    <i class="icon-google"></i> Login With Google </a>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <a href="#" class="btn btn-login  btn-f">
+                                                    <i class="icon-facebook-f"></i> Login With Facebook </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Plugins JS File -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/jquery.hoverIntent.min.js"></script>
+    <script src="assets/js/jquery.waypoints.min.js"></script>
+    <script src="assets/js/superfish.min.js"></script>
+    <script src="assets/js/bootstrap-input-spinner.js"></script>
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="assets/js/wNumb.js"></script>
+    <script src="assets/js/nouislider.min.js"></script>
+    <!-- Main JS File -->
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

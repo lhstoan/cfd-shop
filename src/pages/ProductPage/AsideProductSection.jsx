@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import useDebounce from './../../hooks/useDebounce';
 
 
 // eslint-disable-next-line react-refresh/only-export-components
 const AsideProductSection = ({ categories = [], products, handleCheckboxChange, rangePrice, marginValue = 200 }) => {
 	const { min: minValue, max: maxValue } = rangePrice || [];
-
+	let priceSliderValue;
 	const [filter, setFilter] = useState()
 	useEffect(() => {
 
@@ -34,17 +35,23 @@ const AsideProductSection = ({ categories = [], products, handleCheckboxChange, 
 
 			noUiSlider.create(priceSlider, noUiSliderOptions);
 
-			// Update Price Range
-			priceSlider.noUiSlider.on('update', function (values, handle) {
-				$('#filter-price-range').text(values.join(' - '));
-			});
+
 
 		}
+
 		return () => { priceSlider.noUiSlider.destroy(); }
 
 	}, [rangePrice])
+	// Update Price Range
+	priceSlider.noUiSlider.on('update', function (values, handle) {
 
+		console.log("values", values);
 
+		$('#filter-price-range').text(values.join(' - '));
+	});
+
+	const slideRange = useDebounce(priceSliderValue, 3000);
+	console.log("slideRange", slideRange);
 	const _onCleanFilter = () => {
 
 	}

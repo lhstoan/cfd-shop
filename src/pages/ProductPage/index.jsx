@@ -35,7 +35,7 @@ const ProductPage = () => {
 							<ProductSection {...productProps} />
 							<NavigationSection />
 						</div>
-						<AsideProductSection {...asideProps} />
+						<AsideProductSection {...asideProps} ref={asideRef} />
 					</div>
 				</div>
 			</div>

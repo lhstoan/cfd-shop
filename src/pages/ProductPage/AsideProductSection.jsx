@@ -9,11 +9,11 @@ const AsideProductSection = ({ categories, products, handleCheckboxChange }) => 
 	}
 
 	return (
-		<aside className="col-lg-3 order-lg-first">
+		<aside className="col-lg-3 order-lg-first" ref={ref}>
 			<div className="sidebar sidebar-shop">
 				<div className="widget widget-clean">
 					<label>Filters:</label>
-					<a href="#" className="sidebar-filter-clear">Clean All</a>
+					<a href="#clear" className="sidebar-filter-clear" onClick={_onCleanFilter}>Clean All</a>
 				</div>
 				<div className="widget widget-collapsible">
 					<h3 className="widget-title">
@@ -32,7 +32,7 @@ const AsideProductSection = ({ categories, products, handleCheckboxChange }) => 
 													onChange={handleCheckboxChange} />
 												<label className="custom-control-label" htmlFor={slug}>{name}</label>
 											</div>
-											<span className="item-count">{qty}</span>
+											<span className="item-count">{quantity || 0}</span>
 										</div>
 									)
 								})}

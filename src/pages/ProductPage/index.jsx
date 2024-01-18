@@ -5,10 +5,10 @@ import AsideProductSection from './AsideProductSection'
 import NavigationSection from './NavigationSection'
 import ProductSection from './ProductSection'
 import ToolboxSection from './ToolboxSection'
-import useProdcutPage from './useProdcutPage'
+import useProductPage from './useProductPage'
 
 const ProductPage = () => {
-	const { asideProps } = useProdcutPage();
+	const { productProps, asideProps, toolboxProps } = useProductPage();
 
 	return (
 		<main className="main">
@@ -31,8 +31,8 @@ const ProductPage = () => {
 				<div className="container">
 					<div className="row">
 						<div className="col-lg-9">
-							<ToolboxSection />
-							<ProductSection />
+							<ToolboxSection {...toolboxProps} />
+							<ProductSection {...productProps} />
 							<NavigationSection />
 						</div>
 						<AsideProductSection {...asideProps} />

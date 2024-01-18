@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const AsideProductSection = ({ categories, products }) => {
-	console.log(products);
+// eslint-disable-next-line react-refresh/only-export-components
+const AsideProductSection = ({ categories, products, handleCheckboxChange }) => {
+	const [filter, setFilter] = useState()
+
+	const _onCleanAll = () => {
+
+	}
+
 	return (
 		<aside className="col-lg-3 order-lg-first">
 			<div className="sidebar sidebar-shop">
@@ -16,21 +22,20 @@ const AsideProductSection = ({ categories, products }) => {
 					<div className="collapse show" id="widget-1">
 						<div className="widget-body">
 							<div className="filter-items filter-items-count">
-								{categories?.length > 0 && categories?.map(({ id, slug, name, ...item }, index) => {
-									const qty = products?.filter((item) => item?.category?.slug === slug).length;
-									console.log(qty);
+								{categories?.length > 0 && categories?.map(({ id, slug, name, checked, qty, ...item }, index) => {
 									return (
 										<div className="filter-item" key={id || index}>
 											<div className="custom-control custom-checkbox">
-												<input type="checkbox" className="custom-control-input" id="cat-1" defaultValue={slug} />
-												<label className="custom-control-label" htmlFor="cat-1">{name}</label>
+												<input type="checkbox" className="custom-control-input"
+													id={slug} defaultValue={slug}
+													checked={checked}
+													onChange={handleCheckboxChange} />
+												<label className="custom-control-label" htmlFor={slug}>{name}</label>
 											</div>
 											<span className="item-count">{qty}</span>
 										</div>
-
 									)
 								})}
-
 							</div>
 						</div>
 					</div>
@@ -54,4 +59,5 @@ const AsideProductSection = ({ categories, products }) => {
 	)
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export default AsideProductSection

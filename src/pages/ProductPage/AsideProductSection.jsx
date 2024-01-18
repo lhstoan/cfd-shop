@@ -34,21 +34,17 @@ const AsideProductSection = ({ categories = [], products, handleCheckboxChange, 
 			if (priceSlider == null) return;
 
 			noUiSlider.create(priceSlider, noUiSliderOptions);
+			priceSlider.noUiSlider.on('update', function (values, handle) {
+				$('#filter-price-range').text(values.join(' - '));
 
-
-
+			});
 		}
-
 		return () => { priceSlider.noUiSlider.destroy(); }
 
 	}, [rangePrice])
+
+
 	// Update Price Range
-	priceSlider.noUiSlider.on('update', function (values, handle) {
-
-		console.log("values", values);
-
-		$('#filter-price-range').text(values.join(' - '));
-	});
 
 	const slideRange = useDebounce(priceSliderValue, 3000);
 	console.log("slideRange", slideRange);

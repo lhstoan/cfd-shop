@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Breadcrumb from '../../components/BreadcrumbComponent'
 import PATHS from '../../constants/paths'
 import AsideProductSection from './AsideProductSection'
 import NavigationSection from './NavigationSection'
@@ -8,7 +9,7 @@ import ToolboxSection from './ToolboxSection'
 import useProductPage from './useProductPage'
 
 const ProductPage = () => {
-	const { productProps, asideProps, toolboxProps } = useProductPage();
+	const { productProps, asideProps, toolboxProps, navigationProps } = useProductPage();
 
 	return (
 		<main className="main">
@@ -17,25 +18,23 @@ const ProductPage = () => {
 					<h1 className="page-title">Product</h1>
 				</div>
 			</div>
-			<nav aria-label="breadcrumb" className="breadcrumb-nav mb-2">
-				<div className="container">
-					<ol className="breadcrumb">
-						<li className="breadcrumb-item">
-							<Link to={PATHS.HOME}>Home</Link>
-						</li>
-						<li className="breadcrumb-item active" aria-current="page">Product</li>
-					</ol>
-				</div>
-			</nav>
+
+			<Breadcrumb>
+				<Breadcrumb.Item>
+					<Link to={PATHS.HOME}>Home</Link>
+				</Breadcrumb.Item>
+				<Breadcrumb.Item isActive>Product</Breadcrumb.Item>
+			</Breadcrumb>
+
 			<div className="page-content">
 				<div className="container">
 					<div className="row">
 						<div className="col-lg-9">
 							<ToolboxSection {...toolboxProps} />
 							<ProductSection {...productProps} />
-							<NavigationSection />
+							<NavigationSection {...navigationProps} />
 						</div>
-						<AsideProductSection {...asideProps} ref={asideRef} />
+						<AsideProductSection {...asideProps} />
 					</div>
 				</div>
 			</div>

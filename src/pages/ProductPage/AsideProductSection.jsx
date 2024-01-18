@@ -1,15 +1,56 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
 
 // eslint-disable-next-line react-refresh/only-export-components
-const AsideProductSection = ({ categories, products, handleCheckboxChange }) => {
-	const [filter, setFilter] = useState()
+const AsideProductSection = ({ categories = [], products, handleCheckboxChange, rangePrice, marginValue = 200 }) => {
+	const { min: minValue, max: maxValue } = rangePrice || [];
 
-	const _onCleanAll = () => {
+	const [filter, setFilter] = useState()
+	useEffect(() => {
+
+		const stepValue = 50;
+		const marginPercentage = 20;
+		const marginValue = Math.ceil((maxValue - minValue) * (marginPercentage / 100) / stepValue) * stepValue;
+
+		const noUiSliderOptions = {
+			start: [minValue, maxValue],
+			connect: true,
+			step: stepValue,
+			margin: marginValue,
+			range: {
+				'min': minValue,
+				'max': maxValue
+			},
+			tooltips: true,
+			format: wNumb({
+				decimals: 0,
+				prefix: '$'
+			})
+		}
+
+		if (typeof noUiSlider === 'object') {
+			var priceSlider = document.getElementById('price-slider');
+			if (priceSlider == null) return;
+
+			noUiSlider.create(priceSlider, noUiSliderOptions);
+
+			// Update Price Range
+			priceSlider.noUiSlider.on('update', function (values, handle) {
+				$('#filter-price-range').text(values.join(' - '));
+			});
+
+		}
+		return () => { priceSlider.noUiSlider.destroy(); }
+
+	}, [rangePrice])
+
+
+	const _onCleanFilter = () => {
 
 	}
 
 	return (
-		<aside className="col-lg-3 order-lg-first" ref={ref}>
+		<aside className="col-lg-3 order-lg-first" >
 			<div className="sidebar sidebar-shop">
 				<div className="widget widget-clean">
 					<label>Filters:</label>
@@ -22,7 +63,7 @@ const AsideProductSection = ({ categories, products, handleCheckboxChange }) => 
 					<div className="collapse show" id="widget-1">
 						<div className="widget-body">
 							<div className="filter-items filter-items-count">
-								{categories?.length > 0 && categories?.map(({ id, slug, name, checked, qty, ...item }, index) => {
+								{categories?.length > 0 && categories?.map(({ id, slug, name, checked, qty = 0, ...item }, index) => {
 									return (
 										<div className="filter-item" key={id || index}>
 											<div className="custom-control custom-checkbox">
@@ -32,7 +73,7 @@ const AsideProductSection = ({ categories, products, handleCheckboxChange }) => 
 													onChange={handleCheckboxChange} />
 												<label className="custom-control-label" htmlFor={slug}>{name}</label>
 											</div>
-											<span className="item-count">{quantity || 0}</span>
+											<span className="item-count">{qty}</span>
 										</div>
 									)
 								})}

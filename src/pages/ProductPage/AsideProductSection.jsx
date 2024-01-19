@@ -26,22 +26,26 @@ const AsideProductSection = ({ categories = [], handleCheckboxChange, rangePrice
 				prefix: '$'
 			})
 		}
+
 		if (typeof noUiSlider === 'object') {
 			var priceSlider = document.getElementById('price-slider');
 			if (priceSlider == null) return;
 
 			noUiSlider.create(priceSlider, noUiSliderOptions);
-
 			priceSlider.noUiSlider.on('update', function (values, handle) {
 				$('#filter-price-range').text(values.join(' - '));
-			});
 
+				priceSlider.noUiSlider.on('update', function (values, handle) {
+					$('#filter-price-range').text(values.join(' - '));
+				});
+			}
 		}
 		return () => { priceSlider.noUiSlider.destroy(); }
 
 	}, [rangePrice])
-	// Update Price Range
 
+
+	// Update Price Range
 
 	const _onCleanFilter = () => {
 

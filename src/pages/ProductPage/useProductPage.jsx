@@ -1,6 +1,6 @@
 import { message } from "antd";
 import queryString from "query-string";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { SORT_OPTIONS } from "../../constants/general";
 import useQuery from "../../hooks/useQuery";
@@ -10,6 +10,7 @@ import useMutation from './../../hooks/useMutation';
 const PRODUCT_LIMITS = 9;
 
 const useProductPage = () => {
+
 	const { search } = useLocation()
 	const queryObject = queryString.parse(search);
 	const [_, setSearchParams] = useSearchParams();
@@ -35,10 +36,21 @@ const useProductPage = () => {
 	const allProducts = productForCate?.products || [];
 	const categories = categoriesData?.products || [];
 
-	const initCate = [{ id: "cat01", name: "All", slug: "all" }, ...categories].map(({ id, slug, name, ...cate }) => {
-		const qty = allProducts?.filter((item) => item?.category?.slug === slug).length || allProducts.length;
-		return { id, slug, name, qty: qty, checked: false };
-	});
+	// const initCate = [{ id: "cat01", name: "All", slug: "all" }, ...categories].map(({ id, slug, name, ...cate }) => {
+	// 	const qty = allProducts?.filter((item) => item?.category?.slug === slug).length || allProducts.length;
+	// 	return { id, slug, name, qty: qty, checked: false };
+	// });
+
+	const initCates = useMemo(() => {
+		return [{ id: "cat01", name: "All", slug: "all" }, ...categories].map(({ id, slug, name, ...cate }) => {
+			const qty = allProducts?.filter((item) => item?.category?.slug === slug).length || allProducts.length;
+			const check = slug === "all" ? true : false;
+			return { id, slug, name, qty: qty, checked: check, ...cate };
+		});
+	}, [categories, allProducts]);
+
+
+	const [cateList, setCateList] = useState(() => (initCates));
 
 	useEffect(() => {
 		fetchProducts(search, {
@@ -46,6 +58,7 @@ const useProductPage = () => {
 			onFail: () => { },
 		});
 	}, [search]);
+
 
 	// General Functions
 	const updateQueryString = (queryObject) => {
@@ -61,8 +74,6 @@ const useProductPage = () => {
 		updateQueryString({ ...queryObject, page: page });
 	};
 
-
-
 	const productProps = {
 		isLoading: productsLoading,
 		isError: !!productsError,
@@ -76,8 +87,10 @@ const useProductPage = () => {
 	}
 	const activeSort = useMemo(() => {
 		return (
-			Object.values(SORT_OPTIONS).find((otpion) => (otpion.queryObject.orderBy === queryObject.orderBy && otpion.queryObject.order === queryObject.order))
-		)?.value || SORT_OPTIONS?.popularity
+			Object.values(SORT_OPTIONS).find((otpion) => (
+				otpion.queryObject.orderBy === queryObject.orderBy
+				&& otpion.queryObject.order === queryObject.order
+			)))?.value || SORT_OPTIONS?.popularity
 	}, [queryObject])
 
 	const onSortChange = (sortType) => {
@@ -116,15 +129,25 @@ const useProductPage = () => {
 
 
 	const handleCheckboxChange = (cate) => {
-		console.log(cate);
+		setCateList((initCate) => {
+			initCate.map((item) => {
+				return item.slug === cate ? { ...item, checked: !item.checked } : item
+			})
+		})
 	}
 
+
+	const handleRange = (range) => {
+
+	}
+
+
 	const asideProps = {
-		categories: initCate,
-		products,
+		categories: initCates,
 		rangePrice,
 		marginValue: Math.ceil((rangePrice.max - rangePrice.min) * (20 / 100)),
-		handleCheckboxChange
+		handleCheckboxChange,
+		handleRange
 	};
 
 	return {

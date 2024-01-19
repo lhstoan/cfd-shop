@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 function useDebounce(changedValue, delayTime) {
+
 	// State to store the debounced value
 	const [debouncedValue, setDebouncedValue] = useState(changedValue);
 
@@ -9,7 +10,6 @@ function useDebounce(changedValue, delayTime) {
 		const timeoutId = setTimeout(() => {
 			setDebouncedValue(changedValue);
 		}, delayTime);
-
 		// Clear the timeout if changedValue changes before delayTime
 		return () => clearTimeout(timeoutId);
 	}, [changedValue, delayTime]);

@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { MODAL_TYPES } from '../../constants/general'
 import { REGEXP, VALIDATE_MSG } from '../../constants/validate'
 import useDebounce from '../../hooks/useDebounce'
 import { handleLogin } from '../../store/reducers/authReducer'
@@ -31,6 +30,7 @@ const FormLogin = ({ show }) => {
 			password: ""
 		}
 	})
+
 	useEffect(() => {
 		reset()
 	}, [show]);
@@ -47,9 +47,9 @@ const FormLogin = ({ show }) => {
 
 	return (
 		<div style={{ position: "relative" }}>
-			{renderLoading && <LoadingPage />}
+			{!!renderLoading && <LoadingPage />}
 			<Input
-				label={`${show === MODAL_TYPES.login ? "Username or email address" : "Your email address"}`}
+				label="Username or email address"
 				isRequired
 				error={errors?.email?.message}
 				placeholder="cfd@gmail.com"

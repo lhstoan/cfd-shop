@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import useDebounce from './../../hooks/useDebounce';
+import React, { useEffect } from 'react';
 
 
 // eslint-disable-next-line react-refresh/only-export-components
-const AsideProductSection = ({ categories = [], products, handleCheckboxChange, rangePrice, marginValue = 200 }) => {
+const AsideProductSection = ({ categories = [], handleCheckboxChange, rangePrice, marginValue = 200, handleRange }) => {
 	const { min: minValue, max: maxValue } = rangePrice || [];
-	let priceSliderValue;
-	const [filter, setFilter] = useState()
+
 	useEffect(() => {
 
 		const stepValue = 50;
@@ -28,30 +26,23 @@ const AsideProductSection = ({ categories = [], products, handleCheckboxChange, 
 				prefix: '$'
 			})
 		}
-
 		if (typeof noUiSlider === 'object') {
 			var priceSlider = document.getElementById('price-slider');
 			if (priceSlider == null) return;
 
 			noUiSlider.create(priceSlider, noUiSliderOptions);
 
-
+			priceSlider.noUiSlider.on('update', function (values, handle) {
+				$('#filter-price-range').text(values.join(' - '));
+			});
 
 		}
-
 		return () => { priceSlider.noUiSlider.destroy(); }
 
 	}, [rangePrice])
 	// Update Price Range
-	priceSlider.noUiSlider.on('update', function (values, handle) {
 
-		console.log("values", values);
 
-		$('#filter-price-range').text(values.join(' - '));
-	});
-
-	const slideRange = useDebounce(priceSliderValue, 3000);
-	console.log("slideRange", slideRange);
 	const _onCleanFilter = () => {
 
 	}
@@ -77,7 +68,7 @@ const AsideProductSection = ({ categories = [], products, handleCheckboxChange, 
 												<input type="checkbox" className="custom-control-input"
 													id={slug} defaultValue={slug}
 													checked={checked}
-													onChange={handleCheckboxChange} />
+													onChange={() => handleCheckboxChange(slug)} />
 												<label className="custom-control-label" htmlFor={slug}>{name}</label>
 											</div>
 											<span className="item-count">{qty}</span>

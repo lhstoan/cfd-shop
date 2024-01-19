@@ -49,7 +49,7 @@ const FormRegister = ({ show }) => {
 
 	return (
 		<div style={{ position: "relative" }}>
-			{renderLoading && <LoadingPage />}
+			{!!isLoading && <LoadingPage />}
 			<Input
 				label="Your email address"
 				isRequired

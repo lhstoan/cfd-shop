@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import PATHS from '../../constants/paths'
 
 const FooterComponent = () => {
 	return (
@@ -9,7 +11,9 @@ const FooterComponent = () => {
 						<div className="row">
 							<div className="col-sm-6 col-lg-5">
 								<div className="widget widget-about">
-									<img src="/assets/images/logo.svg" className="footer-logo" alt="Footer Logo" width={120} />
+									<Link to={PATHS.HOME}>
+										<img src="/assets/images/logo.svg" className="footer-logo" alt="Footer Logo" width={120} />
+									</Link>
 									<p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
 									<div className="widget-call">
 										<i className="icon-phone" /> Got Question? Call us 24/7 <a href="tel:#">098 9596 912</a>
@@ -21,16 +25,16 @@ const FooterComponent = () => {
 									<h4 className="widget-title">Useful Links</h4>
 									<ul className="widget-list">
 										<li>
-											<a href="about.html">About Us</a>
+											<Link to={PATHS.ABOUT}>About Us</Link>
 										</li>
 										<li>
-											<a href="product.html">Product</a>
+											<Link to={PATHS.PRODUCTS.INDEX}>Product</Link>
 										</li>
 										<li>
-											<a href="faq.html">FAQs</a>
+											<Link to={PATHS.FAQ}>FAQs</Link>
 										</li>
 										<li>
-											<a href="contact.html">Contact us</a>
+											<Link to={PATHS.CONTACT}>Contact us</Link>
 										</li>
 									</ul>
 								</div>
@@ -40,16 +44,16 @@ const FooterComponent = () => {
 									<h4 className="widget-title">Customer Service</h4>
 									<ul className="widget-list">
 										<li>
-											<a href="payment-methods.html">Payment Methods</a>
+											<Link to={PATHS.PAYMENT_METHOD}>Payment Methods</Link>
 										</li>
 										<li>
-											<a href="returns.html">Returns</a>
+											<Link to={PATHS.RETURN}>Returns</Link>
 										</li>
 										<li>
-											<a href="shipping.html">Shipping</a>
+											<Link to={PATHS.SHIPPING}>Shipping</Link>
 										</li>
 										<li>
-											<a href="privacy-policy.html">Privacy Policy</a>
+											<Link to={PATHS.PRIVACY}>Privacy Policy</Link>
 										</li>
 									</ul>
 								</div>
@@ -59,16 +63,16 @@ const FooterComponent = () => {
 									<h4 className="widget-title">My Account</h4>
 									<ul className="widget-list">
 										<li>
-											<a href="dashboard.html">Account Details</a>
+											<Link to={PATHS.PROFILE.INDEX}>Account Details</Link>
 										</li>
 										<li>
-											<a href="cart.html">View Cart</a>
+											<Link to={PATHS.CART}>View Cart</Link>
 										</li>
 										<li>
-											<a href="dashboard.html">My Wishlist</a>
+											<Link to={PATHS.PROFILE.WISHLIST}>My Wishlist</Link>
 										</li>
 										<li>
-											<a href="dashboard.html">Track My Order</a>
+											<Link to={PATHS.PROFILE.ORDER}>Track My Order</Link>
 										</li>
 									</ul>
 								</div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { MODAL_TYPES } from '../../constants/general';
 import PATHS from '../../constants/paths';
 import { handleLogout, handleShowModal, updateProfile } from '../../store/reducers/authReducer';
@@ -29,8 +29,9 @@ const HeaderTop = () => {
 		<div className="header-top">
 			<div className="container">
 				<div className="header-left">
-					<a href="tel:0989596912">
-						<i className="icon-phone" /> Hotline: 098 9596 912 </a>
+					<a href="tel:0989596912" onClick={(e) => { e?.stopPropagation(); e?.preventDefault(); }}>
+						<i className="icon-phone" /> Hotline: 098 9596 912
+					</a>
 				</div>
 				<div className="header-right">
 					{/* Not LogIn */}
@@ -43,14 +44,14 @@ const HeaderTop = () => {
 					{!!tokenMethod.get() && (
 						<ul className="top-menu">
 							<li>
-								<a href="#" className="top-link-menu"><i className="icon-user" />{lastName || "Guest"} </a>
+								<Link to={PATHS.PROFILE.INDEX} className="top-link-menu"><i className="icon-user" />{lastName || "Guest"} </Link>
 								<ul>
 									<li>
 										<ul>
-											<li><a href="dashboard.html">Account Details</a></li>
-											<li><a href="dashboard.html">Your Orders</a></li>
-											<li><a href="dashboard.html">Wishlist <span>(3)</span></a></li>
-											<li><a href="#" onClick={_onLogout}>Sign Out</a></li>
+											<li><NavLink to={PATHS.PROFILE.INDEX}>Account Details</NavLink></li>
+											<li><NavLink to={PATHS.PROFILE.ORDER}>Your Orders</NavLink></li>
+											<li><NavLink to={PATHS.PROFILE.WISHLIST}>Wishlist <span>(3)</span></NavLink></li>
+											<li><a href="#logout" onClick={_onLogout}>Sign Out</a></li>
 										</ul>
 									</li>
 								</ul>

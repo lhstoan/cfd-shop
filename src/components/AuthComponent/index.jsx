@@ -8,6 +8,7 @@ import fnClass from './../../utils/fnClass';
 import FormLogin from './FormLogin';
 import FormRegister from './FormRegister';
 const ModalContainer = styled.div`
+	z-index: 100;
 	display: ${(props) => (props['data-show'] ? "block" : "none")};
 `
 const AuthComponent = () => {
@@ -31,7 +32,7 @@ const AuthComponent = () => {
 			{/* Sign in / Register Modal */}
 			<ModalContainer className={fnClass("modal", {
 				"fade show": !!showModal
-			})} data-show={!!showModal} >
+			})} data-show={!!showModal}>
 				<div className="modal-dialog modal-dialog-centered" >
 					<div className="modal-content">
 						<div className="modal-body">
@@ -62,9 +63,17 @@ const AuthComponent = () => {
 						</div>{/* End .modal-body */}
 					</div>{/* End .modal-content */}
 				</div>{/* End .modal-dialog */}
+				{!!showModal && (
+					<div
+						className="modal-backdrop fade show"
+						onClick={_onCloseModal}
+						style={{ zIndex: -1 }}
+					></div>
+				)}
 			</ModalContainer > {/* End .modal-dialog */}
 			{/* End .modal */}
 			{/* <ModalBackdrop /> */}
+
 		</ >, document.body
 	)
 }

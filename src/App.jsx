@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoadingPage from "./components/LoadingPage";
 import PATHS from "./constants/paths";
+
 import ProductPage from "./pages/ProductPage";
 import { handleGetProfile } from "./store/reducers/authReducer";
 import tokenMethod from "./utils/token";
@@ -11,6 +12,9 @@ import tokenMethod from "./utils/token";
 const MainLayout = lazy(() => import("./layout/MainLayout"));
 const Page404 = lazy(() => import("./pages/404Page"));
 const HomePage = lazy(() => import("./pages/HomePage"));
+const AboutPage = lazy(() => import("./pages/AboutPage"));
+const ProductSinglePage = lazy(() => import("./pages/ProductSinglePage"));
+
 
 
 function App() {
@@ -36,7 +40,10 @@ function App() {
 					<Routes>
 						<Route path={PATHS.HOME} element={<MainLayout />}>
 							<Route index element={<HomePage />} />
+
+							<Route path={PATHS.ABOUT} element={<AboutPage />} />
 							<Route path={PATHS.PRODUCTS.INDEX} element={<ProductPage />} />
+							<Route path={PATHS.PRODUCTS.DETAIL} element={<ProductSinglePage />} />
 
 							{/* link to error page  */}
 							<Route path="*" element={<Page404 />} />

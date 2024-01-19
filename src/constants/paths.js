@@ -1,4 +1,4 @@
-const PRODUCTS_PATH = "/products";
+const PRODUCTS_PATH = "/product";
 const PROFILE_PATH = "/profile";
 const PROFILE_ORDER = "/profile/order";
 const PROFILE_ADDRESS = "/profile/address";

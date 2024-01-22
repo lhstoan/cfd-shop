@@ -1,10 +1,10 @@
-import React from 'react'
-import useProductPage from '../ProductPage/useProductPage'
-import ProductSingleBot from './ProductSingleBot'
-import ProductSingleTop from './ProductSingleTop'
+import React from 'react';
+import ProductSingleBot from './ProductSingleBot';
+import ProductSingleTop from './ProductSingleTop';
+import useProductDetail from './useProductDetail';
 
 const ProductSinglePage = () => {
-	const { data } = useProductPage();
+	const { productSingleTopProps, productSingleBotProps } = useProductDetail();
 	return (
 		<main className="main">
 			<nav aria-label="breadcrumb" className="breadcrumb-nav border-0 mb-0">
@@ -22,8 +22,8 @@ const ProductSinglePage = () => {
 			</nav>
 			<div className="page-content">
 				<div className="container">
-					<ProductSingleTop />
-					<ProductSingleBot />
+					<ProductSingleTop {...productSingleTopProps} />
+					<ProductSingleBot {...productSingleBotProps} />
 				</div>
 			</div>
 		</main>

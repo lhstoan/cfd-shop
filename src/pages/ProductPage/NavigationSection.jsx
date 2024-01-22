@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import styled from 'styled-components';
 
 const PAGE_STEP = 1;
+const LENGTH_LIST = 3;
 
 const PagiItemWrapper = styled.li`
   margin: 0 10px;
@@ -28,13 +29,13 @@ const NavigationSection = ({ page, limit = 0, total = 0, onPagiChange }) => {
 
 		if (start <= 0) {
 			start = 1;
-			end = start + PAGE_STEP * 2;
+			end = start + PAGE_STEP * (LENGTH_LIST - 1);
 			if (end > totalPage) {
 				end = totalPage;
 			}
 		}
 		if (end >= totalPage) {
-			start = end - PAGE_STEP * 2;
+			start = end - PAGE_STEP * (LENGTH_LIST - 1);
 			end = totalPage;
 			if (start < 1) {
 				start = 1;

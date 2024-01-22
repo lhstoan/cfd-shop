@@ -1,6 +1,6 @@
 import { message } from "antd";
 import queryString from "query-string";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { SORT_OPTIONS } from "../../constants/general";
 import useQuery from "../../hooks/useQuery";
@@ -29,28 +29,21 @@ const useProductPage = () => {
 	} = useQuery(productService.getProducts)
 
 
-	const { data: categoriesData } = useQuery(productService.getCategories);
+	const { data: categoriesData, loading: categoriesLoading, error: categoriesError } = useQuery(productService.getCategories);
 
 	const products = productsData?.products || [];
 	const productsPagi = productsData?.pagination || {};
 	const allProducts = productForCate?.products || [];
 	const categories = categoriesData?.products || [];
 
-	// const initCate = [{ id: "cat01", name: "All", slug: "all" }, ...categories].map(({ id, slug, name, ...cate }) => {
-	// 	const qty = allProducts?.filter((item) => item?.category?.slug === slug).length || allProducts.length;
-	// 	return { id, slug, name, qty: qty, checked: false };
-	// });
-
 	const initCates = useMemo(() => {
-		return [{ id: "cat01", name: "All", slug: "all" }, ...categories].map(({ id, slug, name, ...cate }) => {
+		return [...categories].map(({ id, slug, name, ...cate }) => {
 			const qty = allProducts?.filter((item) => item?.category?.slug === slug).length || allProducts.length;
 			const check = slug === "all" ? true : false;
 			return { id, slug, name, qty: qty, checked: check, ...cate };
 		});
 	}, [categories, allProducts]);
 
-
-	const [cateList, setCateList] = useState(() => (initCates));
 
 	useEffect(() => {
 		fetchProducts(search, {
@@ -128,24 +121,51 @@ const useProductPage = () => {
 	})
 
 
-	const handleCheckboxChange = (cate) => {
-		setCateList((initCate) => {
-			initCate.map((item) => {
-				return item.slug === cate ? { ...item, checked: !item.checked } : item
-			})
+	const handleCheckboxChange = (cateID, isChecked) => {
+		let newCategoryQuery = Array.isArray(queryObject.category)
+			? [...queryObject.category, cateID] : [queryObject.category, cateID]
+
+		if (!isChecked) {
+			newCategoryQuery = newCategoryQuery.filter((cate) => cate !== cateID)
+		}
+		if (!cateID) {
+			newCategoryQuery = [];
+		}
+
+		updateQueryString({
+			...queryObject,
+			category: newCategoryQuery,
+			page: 1,
 		})
 	}
 
-
+	const priceFilterTimeout = useRef();
 	const handleRange = (range) => {
-
+		if (range?.length === 2) {
+			if (priceFilterTimeout.current) {
+				clearTimeout(priceFilterTimeout.current)
+			}
+			priceFilterTimeout.current = setTimeout(() => {
+				updateQueryString({
+					...queryObject,
+					minPrice: range[0].substring(1),
+					maxPrice: range[1].substring(1),
+					page: 1,
+				})
+			}, 500);
+		}
 	}
 
 
 	const asideProps = {
 		categories: initCates,
+		activeCate: Array.isArray(queryObject.category) ? queryObject.category : [queryObject.category],
 		rangePrice,
 		marginValue: Math.ceil((rangePrice.max - rangePrice.min) * (20 / 100)),
+		currentPriceRange: [
+			queryObject.minPrice || 0,
+			queryObject.maxPrice || 1000,
+		],
 		handleCheckboxChange,
 		handleRange
 	};

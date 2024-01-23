@@ -1,5 +1,6 @@
 import { Empty } from 'antd';
 import React, { useEffect } from 'react';
+import fnClass from './../../utils/fnClass';
 
 const ProductZoom = ({ images }) => {
 	useEffect(() => {
@@ -64,7 +65,7 @@ const ProductZoom = ({ images }) => {
 				<div id="product-zoom-gallery" className="product-image-gallery">
 					{!!images?.length ? (
 						images?.map((img, index) => (
-							<a className="product-gallery-item active" href="#" data-image={img} data-zoom-image={img} key={index}>
+							<a className={` ${fnClass("product-gallery-item", { active: index === 0 })}`} href="#" data-image={img} data-zoom-image={img} key={index}>
 								<img src={img} alt="Dark yellow lace" />
 							</a>
 						))

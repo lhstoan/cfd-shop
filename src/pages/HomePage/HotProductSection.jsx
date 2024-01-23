@@ -1,9 +1,8 @@
-import { Empty } from 'antd';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ProductCard from '../../components/ProductCard';
-import owlCarousels from './../../utils/owlCarousels';
 import fnClass from './../../utils/fnClass';
+import owlCarousels from './../../utils/owlCarousels';
 
 const ImageWrapper = styled.div`
   width: 100%;
@@ -108,9 +107,6 @@ const HotProductSection = (hotProductProps) => {
 						</div>)
 					}
 				</div>
-				{/* {!renderProducts?.length > 0 && <ImageWrapper>
-					<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="No Data" />
-				</ImageWrapper>} */}
 			</div>
 		</div>
 	)

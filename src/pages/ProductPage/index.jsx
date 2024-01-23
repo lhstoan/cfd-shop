@@ -1,12 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import Breadcrumb from '../../components/BreadcrumbComponent'
-import PATHS from '../../constants/paths'
 import AsideProductSection from './AsideProductSection'
 import NavigationSection from './NavigationSection'
 import ProductSection from './ProductSection'
 import ToolboxSection from './ToolboxSection'
 import useProductPage from './useProductPage'
+
 
 const ProductPage = () => {
 	const { productProps, asideProps, toolboxProps, navigationProps } = useProductPage();
@@ -19,12 +18,7 @@ const ProductPage = () => {
 				</div>
 			</div>
 
-			<Breadcrumb>
-				<Breadcrumb.Item>
-					<Link to={PATHS.HOME}>Home</Link>
-				</Breadcrumb.Item>
-				<Breadcrumb.Item isActive>Product</Breadcrumb.Item>
-			</Breadcrumb>
+			<Breadcrumb routes={[{ text: "Product" }]} />
 
 			<div className="page-content">
 				<div className="container">

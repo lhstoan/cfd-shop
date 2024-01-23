@@ -68,7 +68,6 @@ const ProductCard = ({ product, ...restProps }) => {
 						<span className="new-price">${formatCurrency(price - discount)}</span>
 						<span className="old-price">Was ${formatCurrency(price || 0)}</span>
 					</>)}
-
 				</div>
 				<div className="ratings-container">
 					<div className="ratings">

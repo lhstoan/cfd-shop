@@ -7,6 +7,7 @@ import PATHS from "./constants/paths";
 
 import ProductPage from "./pages/ProductPage";
 import { handleGetProfile } from "./store/reducers/authReducer";
+import { getCart } from "./store/reducers/cartReducer";
 import tokenMethod from "./utils/token";
 // import component page
 const MainLayout = lazy(() => import("./layout/MainLayout"));
@@ -29,6 +30,7 @@ function App() {
 
 		if (!!tokenMethod.get()) {
 			dispatch(handleGetProfile())
+			dispatch(getCart())
 		}
 
 	}, []);

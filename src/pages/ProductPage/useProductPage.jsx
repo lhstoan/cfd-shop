@@ -163,8 +163,8 @@ const useProductPage = () => {
 		rangePrice,
 		marginValue: Math.ceil((rangePrice.max - rangePrice.min) * (20 / 100)),
 		currentPriceRange: [
-			queryObject.minPrice || 0,
-			queryObject.maxPrice || 1000,
+			queryObject.minPrice || rangePrice.min,
+			queryObject.maxPrice || rangePrice.max,
 		],
 		handleCheckboxChange,
 		handleRange

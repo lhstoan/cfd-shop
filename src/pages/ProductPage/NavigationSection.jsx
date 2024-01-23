@@ -74,7 +74,7 @@ const NavigationSection = ({ page, limit = 0, total = 0, onPagiChange }) => {
 
 	return (
 		<nav aria-label="Page navigation">
-			<ul className="pagination justify-content-center">
+			{totalPage > 1 && (<ul className="pagination justify-content-center">
 				<PagiItem isDisabled={pagiList[0] === 1} onClick={_onFirst}>
 					<span aria-hidden="true">
 						<i className="icon-long-arrow-left" />
@@ -111,7 +111,8 @@ const NavigationSection = ({ page, limit = 0, total = 0, onPagiChange }) => {
 						<i className="icon-long-arrow-right" />
 					</span>
 				</PagiItem>
-			</ul>
+			</ul>)}
+
 		</nav>
 	)
 }

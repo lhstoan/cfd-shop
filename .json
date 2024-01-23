@@ -1,0 +1,43 @@
+{
+	"id": "6489cfbade52a05c3466c8c8",
+	"name": "Samsung Galaxy S22 Plus 5G 128GB",
+	"slug": "samsung-galaxy-s22-plus-5g-128gb-1701025031527",
+	"title": "Samsung Galaxy S22 Plus 5G 128GB",
+	"description": "<p><span style=\"background-color:rgb(255,255,255);color:rgb(119,119,119);font-size:14px;\">Samsung Galaxy S22 Plus 5G 128GB (BHDT) has a modern, high-end design with a 6.6-inch wide screen, and Dynamic AMOLED 2X, 120Hz screen technology. The device is equipped with powerful performance with Snapdragon 8 Gen 1, Android 12 operating system with One UI 4.0 interface. At the same time, the 50MP camera is also a special highlight on the device.</span></p>",
+	"category": {
+		"name": "Tablets & Cell Phones",
+		"id": "648883b5ef6cc95f5f3f381c"
+	},
+	"price": 750,
+	"discount": 100,
+	"rating": 3.77,
+	"featured": false,
+	"onSale": true,
+	"topRated": true,
+	"stock": 9954,
+	"color": [
+		"#FF61EF",
+		"#000000",
+		"#FFFFFF"
+	],
+	"shippingReturn": "<h3>Delivery &amp; returns</h3><p>We deliver to over 100 countries around the world. For full details of the delivery options we offer, please view our <a href=\"#\">Delivery information</a><br>We hope you’ll love every purchase, but if you ever need to return an item you can do so within a month of receipt. For full details of how to make a return, please view our <a href=\"#\">Returns information</a></p>",
+	"isPopular": true,
+	"images": [
+		"https://cfdshop.hn.ss.bfcplatform.vn/images/product/pc9btOPkrA2_6_6-WOaoP-SamsungGalaxyS22Plus-1.jpg",
+		"https://cfdshop.hn.ss.bfcplatform.vn/images/product/BZzb3-0z__B_6THWnHgb8-SamsungGalaxyS22Plus-2.jpg",
+		"https://cfdshop.hn.ss.bfcplatform.vn/images/product/lGccEu_IheNS7rBVo9MC8-SamsungGalaxyS22Plus-3.jpg",
+		"https://cfdshop.hn.ss.bfcplatform.vn/images/product/WVn5WGYR12a2dzr2emPdD-SamsungGalaxyS22Plus-4.jpg"
+	],
+	"active": true,
+	"sortOrder": 1234,
+	"createdUser": {
+		"name": "Administrator",
+		"id": "647618cb5cacec4c8908a99b"
+	},
+	"updatedUser": {
+		"name": "Administrator",
+		"id": "647618cb5cacec4c8908a99b"
+	},
+	"createdAt": "2023-06-14T14:33:30.101Z",
+	"updatedAt": "2023-12-12T06:11:14.782Z"
+}

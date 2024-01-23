@@ -3,6 +3,7 @@ import { message } from "antd";
 import { RESPONSE_MSG } from "../../constants/validate";
 import { authService } from "../../services/authService";
 import tokenMethod from "../../utils/token";
+import { getCart } from "./cartReducer";
 
 
 const initialState = {
@@ -116,6 +117,7 @@ export const handleRegister = createAsyncThunk(
 			if (res?.data?.data?.id) {
 				message.success("Register successfully!")
 				dispatch(handleLogin({ email, password }))
+				dispatch(getCart())
 			}
 		} catch (error) {
 			const erInfo = error?.response?.data;

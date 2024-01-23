@@ -1,7 +1,21 @@
-import React from 'react'
-import ProductZoom from '../../../components/ProductZoom'
+import queryString from 'query-string';
+import React from 'react';
+import ProductColor from '../../../components/ProductColor';
+import ProductQuantity from '../../../components/ProductQuantity';
+import ProductZoom from '../../../components/ProductZoom';
+import PATHS from './../../../constants/paths';
+import { formatCurrency } from './../../../utils/format';
 
-const ProductSingleTop = ({ images }) => {
+const ProductSingleTop = ({ colorRef, qtyRef, handleAddCart, ...productSingleData }) => {
+	const { name, images, rating, quantity, price, color, description, category, discount, stock } = productSingleData || {};
+
+	const pathParams = queryString.stringify({ page: 1, limit: 9, category: [category?.id] })
+
+	const _onAddCart = (e) => {
+		e?.preventDefault();
+		e?.stopPropagation()
+		handleAddCart?.()
+	}
 	return (
 		<div className="product-details-top">
 			<div className="row">
@@ -10,39 +24,31 @@ const ProductSingleTop = ({ images }) => {
 				</div>
 				<div className="col-md-6">
 					<div className="product-details">
-						<h1 className="product-title">Dark yellow lace</h1>
+						<h1 className="product-title">{name}</h1>
 						<div className="ratings-container">
 							<div className="ratings">
-								<div className="ratings-val" style={{ width: '80%' }} />
+								<div className="ratings-val" style={{ width: `${(rating || 0) * 20}%` }} />
 							</div>
-							<a className="ratings-text" href="#product-review-link" id="review-link">( 2 Reviews )</a>
+							<a className="ratings-text" href="#product-review-link" id="review-link">( {rating} Reviews )</a>
 						</div>
-						<div className="product-price"> $84.00 </div>
-						<div className="product-content">
-							<p>Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing. Sed lectus. </p>
+						<div className="product-price">
+							{discount <= 0 && (<>${formatCurrency(price || 0)}</>)}
+							{discount > 0 && (<>
+								<span className="new-price">${formatCurrency(price - discount)}</span>
+								<span className="old-price">Was ${formatCurrency(price || 0)}</span>
+							</>)}
 						</div>
+						<div className="product-content" dangerouslySetInnerHTML={{ __html: description }} />
 						<div className="details-filter-row details-row-size">
 							<label>Color:</label>
-							<div className="product-nav product-nav-dots">
-								<div className="product-nav-item active" style={{ background: '#e2e2e2' }}>
-									<span className="sr-only">Color name</span>
-								</div>
-								<div className="product-nav-item" style={{ background: '#333333' }}>
-									<span className="sr-only">Color name</span>
-								</div>
-								<div className="product-nav-item" style={{ background: '#f2bc9e' }}>
-									<span className="sr-only">Color name</span>
-								</div>
-							</div>
+							<ProductColor colors={color} ref={colorRef} />
 						</div>
 						<div className="details-filter-row details-row-size">
 							<label htmlFor="qty">Qty:</label>
-							<div className="product-details-quantity">
-								<input type="number" id="qty" className="form-control" defaultValue={1} min={1} max={10} step={1} data-decimals={0} required />
-							</div>
+							<ProductQuantity maxValue={stock} ref={qtyRef} />
 						</div>
 						<div className="product-details-action">
-							<a href="#" className="btn-product btn-cart">
+							<a href="#" className="btn-product btn-cart" onClick={(e) => _onAddCart(e)}>
 								<span>add to cart</span>
 							</a>
 							<div className="details-action-wrapper">
@@ -54,7 +60,7 @@ const ProductSingleTop = ({ images }) => {
 						<div className="product-details-footer">
 							<div className="product-cat">
 								<span>Category:</span>
-								<a href="#">Women</a>, <a href="#">Dresses</a>, <a href="#">Yellow</a>
+								{!!category && (<a href={`${PATHS.PRODUCTS.INDEX}?${pathParams}`} >{category.name}</a>)}
 							</div>
 							<div className="social-icons social-icons-sm">
 								<span className="social-label">Share:</span>

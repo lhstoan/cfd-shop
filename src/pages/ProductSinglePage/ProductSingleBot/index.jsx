@@ -118,7 +118,7 @@ const ProductSingleBot = ({ reviewData, ...productSingleData }) => {
 								})}
 							</ListStar>
 
-							{reviewData?.length === 0 && <Empty description="The product has not been reviewed yet!" />}
+							{(reviewData?.length === 0 || renderReview?.length === 0) && <Empty description="The product has not been reviewed yet!" />}
 
 							{renderReview?.length > 0 && (
 								renderReview?.map((item, index) => {
@@ -128,9 +128,6 @@ const ProductSingleBot = ({ reviewData, ...productSingleData }) => {
 						</div>
 					)}
 				</div>
-
-
-
 			</div>
 		</div>
 	)

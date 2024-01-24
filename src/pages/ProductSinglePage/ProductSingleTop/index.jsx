@@ -6,16 +6,21 @@ import ProductZoom from '../../../components/ProductZoom';
 import PATHS from './../../../constants/paths';
 import { formatCurrency } from './../../../utils/format';
 
-const ProductSingleTop = ({ colorRef, qtyRef, handleAddCart, ...productSingleData }) => {
-	const { name, images, rating, quantity, price, color, description, category, discount, stock } = productSingleData || {};
+const ProductSingleTop = ({ colorRef, qtyRef, handleAddCart, wishlist, ...productSingleData }) => {
 
+	const { name, images, rating, quantity, price, color, description, category, discount, stock, id } = productSingleData || {};
 	const pathParams = queryString.stringify({ page: 1, limit: 9, category: [category?.id] })
-
 	const _onAddCart = (e) => {
 		e?.preventDefault();
 		e?.stopPropagation()
 		handleAddCart?.()
 	}
+	const _onWishList = (e, id) => {
+		e?.preventDefault();
+		e?.stopPropagation()
+		console.log(id);
+	}
+
 	return (
 		<div className="product-details-top">
 			<div className="row">
@@ -29,7 +34,7 @@ const ProductSingleTop = ({ colorRef, qtyRef, handleAddCart, ...productSingleDat
 							<div className="ratings">
 								<div className="ratings-val" style={{ width: `${(rating || 0) * 20}%` }} />
 							</div>
-							<a className="ratings-text" href="#product-review-link" id="review-link">( {rating} Reviews )</a>
+							<span className="ratings-text"  >( {rating} Reviews )</span>
 						</div>
 						<div className="product-price">
 							{discount <= 0 && (<>${formatCurrency(price || 0)}</>)}
@@ -48,12 +53,13 @@ const ProductSingleTop = ({ colorRef, qtyRef, handleAddCart, ...productSingleDat
 							<ProductQuantity maxValue={stock} ref={qtyRef} />
 						</div>
 						<div className="product-details-action">
-							<a href="#" className="btn-product btn-cart" onClick={(e) => _onAddCart(e)}>
+							<a href="#cart" className="btn-product btn-cart" onClick={(e) => _onAddCart(e)}>
 								<span>add to cart</span>
 							</a>
 							<div className="details-action-wrapper">
-								<a href="#" className="btn-product btn-wishlist" title="Wishlist">
-									<span>Add to Wishlist</span>
+								<a href="#wishlist" className="btn-product btn-wishlist " onClick={(e) => _onWishList(e, id)}>
+									{!!wishlist && <span>Already in wishlist!</span>}
+									{!!!wishlist && <span>Add to Wishlist</span>}
 								</a>
 							</div>
 						</div>

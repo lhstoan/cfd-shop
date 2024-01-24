@@ -23,7 +23,7 @@ const ProductColor = ({ colors, defaultColor, onChangeColor }, ref) => {
 		<div className="product-nav product-nav-dots">
 			{!!colors?.length && colors?.map((color, index) => (
 				<div className={`${fnClass("product-nav-item", {
-					active: colorActive === color
+					active: colorActive === color || colors?.length === 1,
 				})}`} style={{ background: `${color}` }} key={index} onClick={(e) => _onColorChange(e, color)}>
 					<span className="sr-only">{color}</span>
 				</div>

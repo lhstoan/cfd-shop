@@ -5,7 +5,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoadingPage from "./components/LoadingPage";
 import PATHS from "./constants/paths";
 
-import ProductPage from "./pages/ProductPage";
 import { handleGetProfile } from "./store/reducers/authReducer";
 import { getCart } from "./store/reducers/cartReducer";
 import tokenMethod from "./utils/token";
@@ -15,6 +14,8 @@ const Page404 = lazy(() => import("./pages/404Page"));
 const HomePage = lazy(() => import("./pages/HomePage"));
 const AboutPage = lazy(() => import("./pages/AboutPage"));
 const ProductSinglePage = lazy(() => import("./pages/ProductSinglePage"));
+const CartPage = lazy(() => import("./pages/CartPage"));
+const ProductPage = lazy(() => import("./pages/ProductPage"));
 
 
 
@@ -46,6 +47,7 @@ function App() {
 							<Route path={PATHS.ABOUT} element={<AboutPage />} />
 							<Route path={PATHS.PRODUCTS.INDEX} element={<ProductPage />} />
 							<Route path={PATHS.PRODUCTS.DETAIL} element={<ProductSinglePage />} />
+							<Route path={PATHS.CART} element={<CartPage />} />
 
 							{/* link to error page  */}
 							<Route path="*" element={<Page404 />} />

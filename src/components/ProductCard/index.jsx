@@ -1,10 +1,15 @@
 import { Empty } from 'antd';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { MODAL_TYPES } from '../../constants/general';
 import PATHS from '../../constants/paths';
 import { getImage } from '../../pages/HomePage/useHomePage';
+import { handleShowModal } from '../../store/reducers/authReducer';
+import { handleAddToCart } from '../../store/reducers/cartReducer';
 import { formatCurrency } from '../../utils/format';
+import tokenMethod from '../../utils/token';
 
 const ImageWrapper = styled.div`
   width: 100%;
@@ -21,13 +26,29 @@ const ImageWrapper = styled.div`
 `;
 
 const ProductCard = ({ product, ...restProps }) => {
-
-	const { name, images, slug, title, rating, price, discount } = product || {};
+	const dispatch = useDispatch()
+	const { loading } = useSelector((state) => state.cart)
+	const { id, name, images, slug, title, rating, price, discount, color } = product || {};
 	const imgSrc = getImage(images);
 	const productPath = PATHS.PRODUCTS.INDEX + `/${slug}`;
 
 	const _onAddToCart = (e) => {
 		e?.preventDefault();
+		if (tokenMethod.get()) {
+			//call api from dispatch store
+			const addPayload = {
+				addID: id,
+				addColor: color[0] || "",
+				addQty: 1,
+				addPrice: price - discount
+			}
+			if (!!!loading) {
+				dispatch(handleAddToCart(addPayload))
+			}
+		} else {
+			dispatch(handleShowModal(MODAL_TYPES.login))
+		}
+
 	}
 
 

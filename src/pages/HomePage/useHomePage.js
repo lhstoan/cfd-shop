@@ -66,5 +66,7 @@ const useHomePage = () => {
 export default useHomePage;
 
 export const getImage = (images, defaultImg = "") => {
-	return images?.map(img => img !== "" ? img : null).find(img => img !== null) || defaultImg;
+	return images?.map(img => img !== "" ? img : null).find(img => img !== null)
+		.replace(/(https:\/\/cfdshop\.hn\.ss\.bfcplatform\.vn\/images\/product\/)\1+/g, '$1')
+		|| defaultImg;
 }

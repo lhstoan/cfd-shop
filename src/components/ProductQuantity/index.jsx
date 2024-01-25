@@ -2,6 +2,7 @@ import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'rea
 import styled from 'styled-components';
 // eslint-disable-next-line react-refresh/only-export-components
 const InputNumber = styled.input`
+text-align: center;
 	&::-webkit-inner-spin-button,
 	&::-webkit-outer-spin-button {
 		-webkit-appearance: none;
@@ -13,14 +14,14 @@ const InputNumber = styled.input`
 		position: absolute;
 	}
 `
-const ProductQuantity = ({ minValeu = 1, maxValue = 10, step = 1, className = "product-details-quantity", onChange }, ref) => {
-	const [inputQuantity, setInputQuantity] = useState(minValeu);
+const ProductQuantity = ({ minValeu = 1, maxValue = 10, step = 1, className = "product-details-quantity", defaultQuantity = 1, onChange }, ref) => {
+	const [inputQuantity, setInputQuantity] = useState(defaultQuantity);
 
 	useImperativeHandle(ref, () => {
 		return {
 			value: inputQuantity,
 			reset: () => {
-				setInputQuantity(minValeu)
+				setInputQuantity(defaultQuantity)
 			}
 		}
 	})

@@ -27,3 +27,30 @@ export const SORT_OPTIONS = {
 		queryObject: { orderBy: "rating", order: "-1" },
 	},
 };
+
+export const TYPESHIP = {
+	free: {
+		text: "Free Shipping",
+		value: 0
+	},
+	standart: {
+		text: "Standart",
+		value: 10
+	},
+	express: {
+		text: "Express",
+		value: 20
+	}
+}
+
+export const PAYMENTS = [{
+	id: "bank",
+	label: "Direct bank transfer",
+	description: `Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.`,
+},
+{
+	id: "cash",
+	label: "Cash on delivery",
+	description: `Quisque volutpat mattis eros. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros.`,
+}
+];

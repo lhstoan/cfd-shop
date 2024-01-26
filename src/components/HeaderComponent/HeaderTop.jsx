@@ -4,6 +4,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { MODAL_TYPES } from '../../constants/general';
 import PATHS from '../../constants/paths';
 import { handleLogout, handleShowModal, updateProfile } from '../../store/reducers/authReducer';
+import { updateCart } from '../../store/reducers/cartReducer';
 import tokenMethod from '../../utils/token';
 
 const HeaderTop = () => {
@@ -23,6 +24,7 @@ const HeaderTop = () => {
 		e?.preventDefault();
 		dispatch(handleLogout())
 		dispatch(updateProfile({}))
+		dispatch(updateCart({}))
 		navigate(PATHS.HOME)
 	}
 	return (

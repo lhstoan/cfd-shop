@@ -1,6 +1,8 @@
-const TextArea = ({ error, ...restProps }) => {
+import { forwardRef } from "react";
+
+const TextArea = ({ error, ...restProps }, ref) => {
 	return (
-		<textarea className={`form__input ${error ? "formerror" : ""}`} {...restProps} />
+		<textarea className={`form__input ${error ? "formerror" : ""}`} {...restProps} ref={ref} />
 	);
 };
-export default TextArea;
+export default forwardRef(TextArea);

@@ -1,12 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-const ButtonComponent = ({ children, style, size, toLink, ...restProps }) => {
+const ButtonComponent = ({ children, style, size, toLink, onClick, ...restProps }) => {
 
 	let { sizeClass, styleClass } = "";
 
 	switch (style) {
 		case "primary-2":
 			styleClass = "btn-outline-primary-2";
+			break;
+		case "primary":
+			styleClass = "btn-primary";
 			break;
 		default:
 			styleClass = "";
@@ -22,10 +25,10 @@ const ButtonComponent = ({ children, style, size, toLink, ...restProps }) => {
 			break;
 	}
 	if (toLink) {
-		return <Link to={toLink} className={`btn ${styleClass} ${sizeClass}`}>{children}</Link>
+		return <Link to={toLink} className={`btn ${styleClass} ${sizeClass}`} {...restProps}>{children}</Link>
 	}
 	return (
-		<a href="index.html" className={`btn ${styleClass} ${sizeClass}`}>{children}</a>
+		<button className={`btn ${styleClass} ${sizeClass}`} onClick={onClick} {...restProps}>{children}</button>
 	)
 }
 

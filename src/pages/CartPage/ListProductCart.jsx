@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import ProductQuantity from '../../components/ProductQuantity';
 import PATHS from '../../constants/paths';
+import { formatCurrency } from '../../utils/format';
+import nameColor from '../../utils/nameColor';
 import { getImage } from '../HomePage/useHomePage';
 
 const ColorSpan = styled.span`
@@ -21,8 +23,13 @@ const ColorSpan = styled.span`
 	}
 `
 
-const ListProductCart = ({ qtyRef, ...cartInfo }) => {
-	const { product, variant, totalProduct, quantity } = cartInfo || {};
+const ListProductCart = ({ qtyRef, handleUpdateQty, handleRemoveProduct, products }) => {
+
+	const _onRemove = (e, removeIndex) => {
+		e?.preventDefault();
+		e?.stopPropagation();
+		handleRemoveProduct?.(removeIndex)
+	}
 
 	return (
 		<div className="col-lg-9">
@@ -37,12 +44,13 @@ const ListProductCart = ({ qtyRef, ...cartInfo }) => {
 					</tr>
 				</thead>
 				<tbody>
-					{product?.length > 0 && product?.map((item, index) => {
-						const { name, images, slug, id } = item || {}
-						const color = variant[index];
+					{products?.length > 0 && products?.map((item, index) => {
+						const { name, images, slug, id, color, totalProduct, quantity } = item || {}
 						const imgSrc = getImage(images);
 						const productPath = PATHS.PRODUCTS.INDEX + `/${slug}`;
-						const stock = 10;
+						const stock = 100;
+						const price = Number(totalProduct) / Number(quantity);
+						let total = quantity * price;
 						return (
 							<tr key={index || item.id}>
 								<td className="product-col">
@@ -53,18 +61,23 @@ const ListProductCart = ({ qtyRef, ...cartInfo }) => {
 											</Link>
 										</figure>
 										<h3 className="product-title">
-											<Link to={productPath} >{name} </Link>
-											<ColorSpan>Color: <i style={{ backgroundColor: `${color}` }}></i></ColorSpan>
+											<Link to={productPath} >{name}</Link>
+											<ColorSpan>Color: <i style={{ backgroundColor: `${color}` }}></i> - {nameColor(color)}</ColorSpan>
 										</h3>
 									</div>
 								</td>
-								<td className="price-col">${Number(totalProduct[index]) / Number(quantity[index])}</td>
+								<td className="price-col">${formatCurrency(price)}</td>
 								<td className="quantity-col">
-									<ProductQuantity maxValue={stock} ref={qtyRef} className='cart-product-quantity' defaultQuantity={quantity[index]} />
+									<ProductQuantity
+										maxValue={stock} ref={(thisRef) => (qtyRef.current[index] = thisRef)}
+										className='cart-product-quantity'
+										defaultQuantity={quantity}
+										onChange={(value) => handleUpdateQty(value, index)}
+									/>
 								</td>
-								<td className="total-col">${totalProduct[index]}</td>
-								<td className="remove-col">
-									<button className="btn-remove">
+								<td className="total-col">${formatCurrency(total)}</td>
+								<td className="remove-col" >
+									<button className="btn-remove" onClick={(e) => _onRemove(e, index)}>
 										<i className="icon-close" />
 									</button>
 								</td>
@@ -74,7 +87,7 @@ const ListProductCart = ({ qtyRef, ...cartInfo }) => {
 
 				</tbody>
 			</table>
-			<div className="cart-bottom">
+			{/* <div className="cart-bottom">
 				<div className="cart-discount">
 					<form action="#">
 						<div className="input-group">
@@ -92,7 +105,7 @@ const ListProductCart = ({ qtyRef, ...cartInfo }) => {
 					<span>UPDATE CART</span>
 					<i className="icon-refresh" />
 				</a>
-			</div>
+			</div> */}
 		</div>
 	)
 }

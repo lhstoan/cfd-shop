@@ -1,10 +1,15 @@
 export const VALIDATE_MSG = {
 	req: "Please fill in this field !",
-	pattern: "Please enter the correct email format !",
+	patternEmail: "Please enter the correct email format !",
+	patternPhone: "Please enter the correct phone format !",
 	min: "Password must have 6 characters or more!",
 	check: "Please choose to agree to the privacy policy!",
 	color: "Please select color!",
-	qty: "Quantity must be greater than 1!"
+	qty: "Quantity must be greater than 1!",
+	couponOn: "Coupon has been added successfully!!!",
+	couponOff: "Current coupon has expired!!",
+	removeOn: "Remove coupon successfully!!!",
+	removeOff: "Remove coupon unsuccessfully!!!",
 }
 export const RESPONSE_MSG = {
 	notFound: "Username or password is not correct.",

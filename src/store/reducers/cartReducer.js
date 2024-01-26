@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { message } from "antd";
 import cartService from "../../services/cartService";
+import { sumArrayNumber } from "../../utils/calculate";
 
 const initialState = {
 	cartInfo: {},
@@ -11,7 +12,8 @@ const cartSlide = createSlice({
 	name: "cart",
 	initialState,
 	reducers: {
-		updateCart(state, action) { }
+		updateCart(state, action) { state.cartInfo = action.payload; },
+		updateCacheCart(state, action) { state.cartInfo = action.payload || state.cartInfo; },
 	},
 	extraReducers: (builder) => {
 		builder.addCase(getCart.fulfilled, (state, action) => {
@@ -29,6 +31,13 @@ const cartSlide = createSlice({
 		}).addCase(handleRemoveItemCart.rejected, (state) => {
 			state.loading = false;
 		})
+		builder.addCase(handleUpdateItemCart.fulfilled, (state) => {
+			state.loading = false;
+		}).addCase(handleUpdateItemCart.pending, (state) => {
+			state.loading = true;
+		}).addCase(handleUpdateItemCart.rejected, (state) => {
+			state.loading = false;
+		})
 	}
 })
 
@@ -38,7 +47,7 @@ const {
 } = cartSlide
 
 export const {
-	updateCart
+	updateCart, updateCacheCart
 } = cartActions
 
 
@@ -60,7 +69,7 @@ export const getCart = createAsyncThunk(
 
 export const handleAddToCart = createAsyncThunk(
 	"cart/handleAddToCart",
-	async (payload, { dispatch, getState }) => {
+	async (payload, { dispatch, getState, rejectWithValue }) => {
 		try {
 			const { addID, addColor, addQty, addPrice } = payload || {};
 			let addPayload = {};
@@ -73,7 +82,6 @@ export const handleAddToCart = createAsyncThunk(
 				const newProduct = productList?.map(({ id }) => id)
 				const newQty = [...(quantity ?? [])]
 				const newColor = [...(variant ?? [])]
-				const colorIndex = newColor?.findIndex((color) => color === addColor);
 				const newTotalProduct = [...(totalProduct ?? [])]
 				if (checkIndex > -1 && newColor[checkIndex] === addColor) {
 					newQty[checkIndex] = Number(newQty[checkIndex]) + Number(addQty);
@@ -86,7 +94,7 @@ export const handleAddToCart = createAsyncThunk(
 					newTotalProduct.push(addPrice * addQty)
 				}
 
-				const newSubTotal = newTotalProduct.reduce((accumulator, currentValue) => Number(accumulator) + Number(currentValue), 0) || 0;
+				const newSubTotal = sumArrayNumber(newTotalProduct)
 				const newTotal = newSubTotal - discount;
 
 				addPayload = {
@@ -117,23 +125,27 @@ export const handleAddToCart = createAsyncThunk(
 			message.success("Add to cart succesfully!")
 			return cartRes?.data?.data;
 		} catch (error) {
-			console.log('error', error)
+			rejectWithValue(error)
+			message.error("Add to cart failed !!!")
+			throw error;
 		}
 	}
 )
 
 export const handleRemoveItemCart = createAsyncThunk(
 	"cart/handleRemoveItemCart",
-	async (payload, { dispatch, getState }) => {
+	async (payload, { dispatch, getState, rejectWithValue }) => {
+		const { productIndex } = payload || {};
+		const { cartInfo } = getState()?.cart || {};
+
 		try {
-			const { cartInfo } = getState()?.cart || {};
-			const { quantity, product, variant, totalProduct, discount } = cartInfo || {};
-			const newProduct = product?.filter((_, index) => index !== payload).map(({ id }) => id)
-			const newQty = quantity?.filter((_, index) => index !== payload);
-			const newColor = variant?.filter((_, index) => index !== payload);
-			const newTotalProduct = totalProduct?.filter((_, index) => index !== payload);
-			const newSubTotal = newTotalProduct.reduce((accumulator, currentValue) => Number(accumulator) + Number(currentValue), 0) || 0;
-			const newTotal = newSubTotal - discount;
+			const { quantity, product, variant, totalProduct, discount, shipping } = cartInfo || {};
+			const newProduct = product?.filter((_, index) => index !== productIndex).map(({ id }) => id)
+			const newQty = quantity?.filter((_, index) => index !== productIndex);
+			const newColor = variant?.filter((_, index) => index !== productIndex);
+			const newTotalProduct = totalProduct?.filter((_, index) => index !== productIndex);
+			const newSubTotal = sumArrayNumber(newTotalProduct)
+			const newTotal = newSubTotal - (discount ?? 0) + (shipping?.price ?? 0);
 
 			const removePayload = {
 				...cartInfo,
@@ -143,14 +155,35 @@ export const handleRemoveItemCart = createAsyncThunk(
 				totalProduct: newTotalProduct,
 				subTotal: newSubTotal,
 				total: newTotal,
+				shipping: newProduct?.length > 0 ? shipping : {},
+				discount: newProduct?.length > 0 ? discount : 0,
 			}
 
 			const cartRes = await cartService.updateCart(removePayload);
 			dispatch(getCart())
-			message.success("Add to cart succesfully!")
+			message.success("Remove item succesfully!")
 			return cartRes?.data?.data;
 		} catch (error) {
-			console.log('error', error)
+			rejectWithValue(error)
+			message.error("Remove item failed !!!")
+			throw error;
+		}
+	}
+)
+
+
+export const handleUpdateItemCart = createAsyncThunk(
+	"cart/handleUpdateItemCart",
+	async (payload, { dispatch, getState, rejectWithValue }) => {
+		try {
+			const cartRes = await cartService.updateCart(payload);
+			dispatch(getCart())
+			message.success("Update cart succesfully!")
+			return cartRes?.data?.data;
+		} catch (error) {
+			rejectWithValue(error)
+			message.error("Update cart failed !!!")
+			throw error;
 		}
 	}
 )

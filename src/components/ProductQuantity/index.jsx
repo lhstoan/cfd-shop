@@ -31,7 +31,14 @@ const ProductQuantity = ({ minValeu = 1, maxValue = 10, step = 1, className = "p
 	}, [inputQuantity]);
 
 	const _onChangeInput = (e) => {
-		setInputQuantity(e?.target?.value)
+		setInputQuantity(
+			e?.target?.value !== "" ? _modifyValue(Number(e?.target?.value)) : ""
+		)
+	}
+	const _onBlurInput = () => {
+		if (inputQuantity === "") {
+			setInputQuantity(defaultQuantity)
+		}
 	}
 	const _onDecrement = () => {
 		const value = _modifyValue(Number(inputQuantity) + Number(step))
@@ -62,6 +69,7 @@ const ProductQuantity = ({ minValeu = 1, maxValue = 10, step = 1, className = "p
 				<InputNumber type="number" id="qty"
 					className="form-control" step={step} min={minValeu} max={maxValue}
 					onChange={(e) => _onChangeInput(e)} value={inputQuantity}
+					onBlur={_onBlurInput}
 				/>
 				<div className="input-group-append">
 					<button style={{ minWidth: 26 }} className="btn btn-spinner" type="button" onClick={_onDecrement}>

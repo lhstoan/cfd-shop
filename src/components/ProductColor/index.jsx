@@ -1,5 +1,6 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import fnClass from '../../utils/fnClass';
+import nameColor from '../../utils/nameColor';
 
 const ProductColor = ({ colors, defaultColor, onChangeColor }, ref) => {
 	const [colorActive, setColorActive] = useState(defaultColor);
@@ -22,7 +23,7 @@ const ProductColor = ({ colors, defaultColor, onChangeColor }, ref) => {
 	return (
 		<div className="product-nav product-nav-dots">
 			{!!colors?.length && colors?.map((color, index) => (
-				<div className={`${fnClass("product-nav-item", {
+				<div title={nameColor(color)} className={`${fnClass("product-nav-item", {
 					active: colorActive === color || colors?.length === 1,
 				})}`} style={{ background: `${color}` }} key={index} onClick={(e) => _onColorChange(e, color)}>
 					<span className="sr-only">{color}</span>

@@ -143,6 +143,7 @@ export const handleLogin = createAsyncThunk(
 
 				message.success("Logged in successfully!")
 				dispatch(handleGetProfile());
+				dispatch(getCart())
 			}
 		} catch (error) {
 			const erInfo = error?.response?.data;

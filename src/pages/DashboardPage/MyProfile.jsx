@@ -32,7 +32,7 @@ const SelectContainer = styled.div`
 		border-radius: 0 !important;
 		>*{
 			border-radius: 0 !important;
-		}import { removeAccents } from './../../utils/format';
+		}
 
 	}
 `

@@ -217,7 +217,9 @@ const MyProfile = () => {
 								render={({ field }) => {
 									const filterOption = (input, option) =>
 										removeAccents((option?.label ?? '')).toLowerCase().includes(removeAccents(input.toLowerCase()));
+
 									const error = errors?.district?.message;
+
 									const _onChange = (value, { onChange }) => {
 										handleDistrictChange?.(value)
 										onChange(value);
@@ -257,7 +259,9 @@ const MyProfile = () => {
 								render={({ field }) => {
 									const filterOption = (input, option) =>
 										removeAccents((option?.label ?? '')).toLowerCase().includes(removeAccents(input.toLowerCase()));
+
 									const error = errors?.ward?.message;
+
 									const _onChange = (value, { onChange }) => {
 										handleWardChange?.(value)
 										// reset?.(

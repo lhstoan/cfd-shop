@@ -17,7 +17,6 @@ const SelectContainer = styled.div`
 	.customSelect {
 		width: 100%;
 		height: 40px;
-		
 	}
 `
 const FormContainer = styled.div`
@@ -55,6 +54,8 @@ const FormCheckout = ({ handleSubmitFormCheckout, profile, ...cartInfo }) => {
 		reset,
 		control,
 		getValues,
+		setValue,
+		watch,
 		formState: { errors }
 	} = useForm({
 		defaultValues: {
@@ -163,12 +164,14 @@ const FormCheckout = ({ handleSubmitFormCheckout, profile, ...cartInfo }) => {
 									rules={{
 										required: VALIDATE_MSG.req,
 									}}
-									render={({ formState: { errors }, field: { ref } }) => {
+									render={({ formState: { errors }, field: { onChange, ref } }) => {
 										const filterOption = (input, option) =>
 											removeAccents((option?.label ?? '')).toLowerCase().includes(removeAccents(input.toLowerCase()));
 										const error = errors?.province?.message;
-										const _onChanges = (value) => {
-											handleProvinceChange?.(value)
+
+										const _onChanges = (event) => {
+											setValue("province", event)
+											handleProvinceChange?.(event)
 											reset?.(
 												{
 													...getValues(),
@@ -178,6 +181,7 @@ const FormCheckout = ({ handleSubmitFormCheckout, profile, ...cartInfo }) => {
 												}
 											)
 										};
+
 										return (
 											<>
 												<Select
@@ -196,7 +200,6 @@ const FormCheckout = ({ handleSubmitFormCheckout, profile, ...cartInfo }) => {
 										)
 									}}
 								/>
-
 							</SelectContainer>
 						</div>
 						<div className="col-sm-4">
@@ -208,13 +211,14 @@ const FormCheckout = ({ handleSubmitFormCheckout, profile, ...cartInfo }) => {
 									rules={{
 										required: VALIDATE_MSG.req,
 									}}
-									render={({ formState: { errors }, field: { ref } }) => {
+									render={({ formState: { errors }, field: { onChange, ref } }) => {
 										const filterOption = (input, option) =>
 											removeAccents((option?.label ?? '')).toLowerCase().includes(removeAccents(input.toLowerCase()));
 										const error = errors?.district?.message;
 
-										const _onChange = (value) => {
-											handleDistrictChange?.(value)
+										const _onChange = (event) => {
+											setValue("district", event)
+											handleDistrictChange?.(event)
 											reset?.(
 												{
 													...getValues(),
@@ -254,12 +258,14 @@ const FormCheckout = ({ handleSubmitFormCheckout, profile, ...cartInfo }) => {
 									rules={{
 										required: VALIDATE_MSG.req,
 									}}
-									render={({ formState: { errors }, field: { ref } }) => {
+									render={({ formState: { errors }, field: { onChange, value, ref } }) => {
 										const filterOption = (input, option) =>
 											removeAccents((option?.label ?? '')).toLowerCase().includes(removeAccents(input.toLowerCase()));
 										const error = errors?.ward?.message;
-										const _onChange = (value) => {
-											handleWardChange?.(value)
+
+										const _onChange = (event) => {
+											setValue("ward", event)
+											handleWardChange?.(event)
 											reset?.(
 												{
 													...getValues(),
@@ -267,6 +273,7 @@ const FormCheckout = ({ handleSubmitFormCheckout, profile, ...cartInfo }) => {
 												}
 											)
 										};
+
 										return (
 											<>
 												<Select
@@ -275,7 +282,10 @@ const FormCheckout = ({ handleSubmitFormCheckout, profile, ...cartInfo }) => {
 													className="customSelect"
 													placeholder="Select a Ward"
 													optionFilterProp="children"
-													onChange={_onChange}
+													onChange={(ev) => {
+														onChange(ev);
+														_onChange(ev);
+													}}
 													filterOption={filterOption}
 													options={wards}
 													value={wardID}
@@ -292,7 +302,9 @@ const FormCheckout = ({ handleSubmitFormCheckout, profile, ...cartInfo }) => {
 						label="Street address"
 						placeholder="House number and Street name"
 						isRequired
-						{...register("street")}
+						{...register("street", {
+							required: VALIDATE_MSG.req
+						})}
 					/>
 					<Input
 						label="Order notes (optional)"

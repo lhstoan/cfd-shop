@@ -175,3 +175,37 @@ export const handleGetProfile = createAsyncThunk(
 		}
 	}
 )
+
+export const handleUpdateProfile = createAsyncThunk(
+	"auth/handleUpdateProfile",
+	async (payload, { dispatch, getState, rejectWithValue }) => {
+		const { lastName } = payload || {};
+
+		console.log(payload);
+		const updatePayload = {
+			firstName: "",
+			lastName: "",
+			phone: "",
+			birthday: "",
+			street: "",
+			province: "",
+			district: "",
+			ward: "",
+		}
+
+		console.log(updatePayload);
+		try {
+			// const res = await authService.updateProfile(updatePayload);
+
+			if (res?.data?.data) {
+				message.success("Update profile successfully!!!")
+				dispatch(handleGetProfile())
+			}
+		} catch (error) {
+			const erInfo = error?.response?.data;
+			const msg = responseError(error?.response?.data);
+			message.error(msg)
+			return rejectWithValue(erInfo);
+		}
+	}
+)

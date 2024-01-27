@@ -1,10 +1,10 @@
 import { message } from "antd";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PATHS from "../constants/paths";
 import { MODAL_TYPES } from './../constants/general';
 import { authService } from './../services/authService';
 import tokenMethod from './../utils/token';
-import PATHS from "../constants/paths";
 
 const AuthContext = createContext();
 
@@ -21,7 +21,7 @@ const AuthContextProvider = ({ children }) => {
 	}, []);
 
 	const handleShowModal = (modalType) => {
-		if (!!!tokenMethod.get()) {
+		if (!!tokenMethod.get()) {
 			$("body").addClass("modal-open");
 			setShowModal(modalType || "");
 		}

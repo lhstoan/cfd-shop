@@ -20,6 +20,7 @@ const ToolboxSection = ({ showNumb = 0, totalProduct = 0, activeSort, onSortChan
 					<Input
 						className="form-control"
 						label=""
+						isNotLabel
 						style={{ with: 400 }}
 						renderProps={
 							(selectProps) => (
